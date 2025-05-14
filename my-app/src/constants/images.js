@@ -1,4 +1,4 @@
-import { URL_BACKEND } from './api.js'
+import { URL_BACKEND, URL_FRONTEND } from './api.js'
 
-export const IMAGE_URL = 'http://localhost:3000/public/images'
+export const IMAGE_URL =URL_FRONTEND+ '/public/images'
 export const URL_BACKEND_IMAGES = URL_BACKEND + '/uploads'
