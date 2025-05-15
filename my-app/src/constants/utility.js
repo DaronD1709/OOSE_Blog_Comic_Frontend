@@ -1,4 +1,5 @@
 import { URL_BACKEND_IMAGES } from './images.js'
+import { avatarClasses } from '@mui/material'
 
 export const getBloggerAvatar = (blog) => {
   if (blog.author.loginType === 'LOCAL') {
@@ -11,10 +12,10 @@ export const getLocalAvatar = (avatar) => {
   return `${URL_BACKEND_IMAGES}/${avatar}`
 }
 
-export const getUserAvatar = (user) => {
-  if (user.loginType === 'LOCAL') {
-    return getLocalAvatar(user.avatar)
+export const getUserAvatar = (avatar) => {
+  if (avatar.startsWith('https://')) {
+    return avatar
   } else {
-    return user.avatar
+    return getLocalAvatar(avatar)
   }
 }

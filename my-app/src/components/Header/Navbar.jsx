@@ -4,13 +4,14 @@ import NotiIcon from '../Notification/NotiIcon'
 import UserMenu from './UserMenu'
 import { useContext } from 'react'
 import { AuthContext } from '../../context/auth.context.jsx'
-import { IMAGE_URL } from '../../constants/images.js'
 import { ROUTES } from '../../constants/api.js'
+import filter from '/src/assets/images/filter.png'
 
 const Navbar = () => {
   const { user } = useContext(AuthContext)
   return (
-    <nav className="flex items-center justify-between px-8 h-16 bg-gradient-to-r from-blue-600 to-blue-500 mt-2 rounded-xl shadow-lg">
+    <nav
+      className="flex items-center justify-between px-8 h-16 bg-gradient-to-r from-blue-600 to-blue-500 mt-2 rounded-xl shadow-lg">
       {/* Logo + Links */}
       <div className="flex items-center gap-8">
         {/* Logo */}
@@ -67,10 +68,11 @@ const Navbar = () => {
               strokeWidth={2}
               viewBox="0 0 24 24"
             >
-              <circle cx="11" cy="11" r="8" />
-              <path d="M21 21l-4.35-4.35" strokeLinecap="round" />
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35" strokeLinecap="round"/>
             </svg>
-            <button className="absolute right-1.5 px-4 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all duration-300 flex items-center gap-2 text-sm font-medium backdrop-blur-sm hover:scale-105">
+            <button
+              className="absolute right-1.5 px-4 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all duration-300 flex items-center gap-2 text-sm font-medium backdrop-blur-sm hover:scale-105">
               <span>Tìm kiếm</span>
               <svg
                 className="w-4 h-4"
@@ -89,7 +91,7 @@ const Navbar = () => {
           </div>
         </div>
         <Link to={ROUTES.SEARCH}>
-          <img src={`${IMAGE_URL}/filter.png`} className={'w-9 h-9 ml-4 hover:cursor-pointer'}/>
+          <img src={`${filter}`} className={'w-9 h-9 ml-4 hover:cursor-pointer'}/>
         </Link>
       </div>
 

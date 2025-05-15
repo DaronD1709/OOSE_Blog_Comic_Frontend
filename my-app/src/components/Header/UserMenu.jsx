@@ -4,6 +4,7 @@ import { AuthContext } from '../../context/auth.context.jsx'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../constants/api.js'
 import { URL_BACKEND_IMAGES } from '../../constants/images.js'
+import { getUserAvatar } from '../../constants/utility.js'
 
 const UserMenu = () => {
   const { user, setUser } = useContext(AuthContext)
@@ -30,9 +31,9 @@ const UserMenu = () => {
       ),
       onClick: () => {
         if (user && user.id) {
-          window.location.href = ROUTES.USER_BY_ID.replace(':id', user.id);
+          window.location.href = ROUTES.USER_BY_ID.replace(':id', user.id)
         } else {
-          window.location.href = ROUTES.LOGIN;
+          window.location.href = ROUTES.LOGIN
         }
       },
     },
@@ -53,7 +54,7 @@ const UserMenu = () => {
           />
         </svg>
       ),
-      onClick: () => (window.location.href = '/create-post'),
+      onClick: () => (window.location.href = ROUTES.NEW_COMIC),
     },
     {
       label: 'Setting',
@@ -102,9 +103,9 @@ const UserMenu = () => {
 
   const goToLogin = () => {
     if (user && user.id) {
-      window.location.href = ROUTES.USER_BY_ID.replace(':id', user.id);
+      window.location.href = ROUTES.USER_BY_ID.replace(':id', user.id)
     } else {
-      window.location.href = ROUTES.LOGIN;
+      window.location.href = ROUTES.LOGIN
     }
   }
 
@@ -130,7 +131,7 @@ const UserMenu = () => {
         <>
           <div className="flex items-center gap-2">
             <img
-              src={user.loginType === 'GOOGLE' ? user.avatar : `${URL_BACKEND_IMAGES}/${user.avatar}`}
+              src={getUserAvatar(user.avatar)}
               alt="Avatar"
               className="w-12 h-12 rounded-full border-2 border-blue-400 object-cover cursor-pointer hover:border-blue-500 transition-colors duration-200"
               onClick={() => setOpen((o) => !o)}
@@ -138,11 +139,11 @@ const UserMenu = () => {
           </div>
           {open && (
             <div
-              className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50 overflow-hidden">
+              className="absolute right-0 mt-2 w-70 bg-white border border-gray-200 rounded-lg shadow-lg z-50 overflow-hidden">
               <div className="px-6 py-4 bg-gradient-to-r from-blue-500 to-blue-600">
                 <div className="flex items-center gap-7">
                   <img
-                    src={user.avatar}
+                    src={getUserAvatar(user.avatar)}
                     alt="Avatar"
                     className="w-14 h-14 rounded-full object-cover ring-2 ring-white/30"
                   />

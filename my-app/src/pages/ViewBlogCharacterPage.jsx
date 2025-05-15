@@ -33,7 +33,7 @@ import {
   followBloggerAPI,
   unfollowBloggerAPI,
 } from '../services/followService.js'
-import { getBloggerAvatar } from '../constants/utility.js'
+import { getBloggerAvatar, getUserAvatar } from '../constants/utility.js'
 
 export const ViewBlogCharacterPage = () => {
   const { id } = useParams()
@@ -273,7 +273,7 @@ export const ViewBlogCharacterPage = () => {
                   <BloggerInfo
                     hasFollow={hasFollow}
                     name={blog.author.displayName}
-                    avatarUrl={getBloggerAvatar(blog)}
+                    avatarUrl={getUserAvatar(blog.author.avatar)}
                     date={formatDatetimeWithTimeFirst(blog.createdAt)}
                     onFollow={toggleFollowBlogger}
                     setHasFollow={setHasFollow}

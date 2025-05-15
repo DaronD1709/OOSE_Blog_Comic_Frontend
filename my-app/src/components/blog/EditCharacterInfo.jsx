@@ -1,11 +1,8 @@
-import { characterMeta } from '../../meta/CharacterMeta.jsx'
-import ClickableImageUpload from './ImageUpload.jsx'
 import React, { useState } from 'react'
-import { IMAGE_URL } from '../../constants/images.js'
-import { Button, Divider, Form, Input, Modal } from 'antd'
+import { Divider, Form, Input, Modal } from 'antd'
 import { CharacterInfo } from './CharacterInfo.jsx'
-import ImageUpload from './ImageUpload.jsx'
 import EditImageUpload from './EditImageUpload.jsx'
+import editText from '/src/assets/images/edit-text.png'
 
 export const EditCharacterInfo = ({ character, setCharacter, blogCharacterThumbnail, setBlogCharacterThumbnail }) => {
   const [form] = Form.useForm()
@@ -153,7 +150,7 @@ export const EditCharacterInfo = ({ character, setCharacter, blogCharacterThumbn
         <div className="flex justify-center  ">
           <div className={'flex justify-center items-center border w-full hover:bg-amber-300 p-2 rounded-2xl mb-1'}
                onClick={handleEdit}>
-            <img src={`${IMAGE_URL}/edit-text.png`} className={'w-auto h-5'}/>
+            <img src={`${editText}`} className={'w-auto h-5'}/>
             <div className={'mb-0'}>Sửa thông tin</div>
           </div>
         </div>

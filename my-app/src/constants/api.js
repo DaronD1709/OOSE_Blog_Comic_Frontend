@@ -1,5 +1,4 @@
 export const URL_BACKEND = import.meta.env.VITE_BACKEND_URL
-export const URL_FRONTEND = import.meta.env.VITE_FRONTEND_URL
 export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',

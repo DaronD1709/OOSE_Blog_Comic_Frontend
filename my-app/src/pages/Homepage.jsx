@@ -68,7 +68,8 @@ const Homepage = () => {
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white flex flex-col flex-1 min-h-screen ">
       <div className="flex justify-center p-8 ">
-        <div className={'h-[900px] overflow-y-scroll pr-12 w-4/6 text-black  flex flex-col gap-3 items-center overflow-x-hidden'}>
+        <div className={'h-[900px] overflow-y-scroll  w-5/7 text-black  flex flex-col gap-3 items-center' +
+          ' overflow-x-hidden'}>
           {
             blogs.length > 0 &&
             <div className="  ">
@@ -79,7 +80,7 @@ const Homepage = () => {
           }
         </div>
         <div
-          className="w-2/6 h-full text-black bg-white rounded-2xl shadow-sm flex flex-col mt-6 gap-4 items-center ml-8 p-6 border border-gray-100">
+          className="w-2/7 h-full text-black bg-white rounded-2xl shadow-sm flex flex-col mt-6 gap-4 items-center ml-8 p-6 border border-gray-100">
           <div className="w-full">
             <h1
               className="text-2xl font-bold bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent pb-2">

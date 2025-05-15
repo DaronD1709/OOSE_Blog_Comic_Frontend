@@ -32,7 +32,7 @@ import { formatDatetimeWithTimeFirst } from '../services/helperService'
 import { ROUTES } from '../constants/api'
 import { URL_BACKEND_IMAGES } from '../constants/images'
 import { customImageAlignStyles } from '../editor/editorCustomStyleConstant'
-import { getBloggerAvatar } from '../constants/utility.js'
+import { getBloggerAvatar, getUserAvatar } from '../constants/utility.js'
 
 export const ViewBlogComicPage = () => {
   const { id } = useParams()
@@ -254,7 +254,7 @@ export const ViewBlogComicPage = () => {
               <BloggerInfo
                 hasFollow={hasFollow}
                 name={blog.author.displayName}
-                avatarUrl={getBloggerAvatar(blog)}
+                avatarUrl={getUserAvatar(blog.author.avatar)}
                 date={formatDatetimeWithTimeFirst(blog.createdAt)}
                 onFollow={handleFollow}
                 setHasFollow={setHasFollow}

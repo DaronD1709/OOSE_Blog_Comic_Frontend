@@ -114,7 +114,7 @@ const HorizontalCard = ({
           <div className="flex items-center gap-3 text-sm mt-4">
             <div className="flex items-center gap-2">
               <img
-                src={getUserAvatar(author)}
+                src={getUserAvatar(author.avatar)}
                 alt={author.avatar}
                 className="w-8 h-8 rounded-full object-cover"
               />

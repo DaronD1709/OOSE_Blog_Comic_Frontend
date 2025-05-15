@@ -15,6 +15,7 @@ import CommentBox from './CommentBox'
 import ReportButton from '../Report/ReportButton'
 import { URL_BACKEND_IMAGES } from '../../constants/images.js'
 import { addCommentToBlogAPI } from '../../services/commentService.js'
+import { getUserAvatar } from '../../constants/utility.js'
 
 class CommentItem extends React.Component {
   static contextType = CommentContext
@@ -114,7 +115,7 @@ class CommentItem extends React.Component {
         {/* Avatar */}
         <div className="flex flex-col items-center pt-2">
           <Avatar className={'!w-[70px] !h-[70px]'}
-                  src={`${URL_BACKEND_IMAGES}/${comment.userCommentResponse.avatar}`}/>
+                  src={`${getUserAvatar(comment.userCommentResponse.avatar)}`}/>
         </div>
         <div className="flex-1">
           {/* Box riêng cho mỗi comment */}

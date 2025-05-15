@@ -1,12 +1,10 @@
 import {
   Button,
-  Checkbox,
   Divider,
   Form,
   Image,
   Input,
   message,
-  Space,
 } from 'antd'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import React, { useState } from 'react'
@@ -15,6 +13,7 @@ import { registerAPI } from '../services/authService.js'
 import { resentOTPAPI, resentOTPEmailAPI, sentOTPAPI } from '../services/otpService.js'
 import { IMAGE_URL } from '../constants/images.js'
 import { URL_BACKEND } from '../constants/api.js'
+import checked from '/src/assets/images/checked.png'
 
 const RegisterPage = () => {
   const location = useLocation()
@@ -325,7 +324,7 @@ const RegisterPage = () => {
               </p>
               <div className={'flex justify-center'}>
                 <div className={'w-40 h-40 '}>
-                  <Image src={`${IMAGE_URL}/checked.png`} preview={false}/>
+                  <Image src={`${checked}`} preview={false}/>
                 </div>
               </div>
               <Button
