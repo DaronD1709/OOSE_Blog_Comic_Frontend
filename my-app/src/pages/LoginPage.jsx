@@ -99,13 +99,12 @@ const LoginPage = () => {
                     Remember Me
                   </span>
                 </label>
-                <a
-                  href="#"
-                  style={{ color: "#8DAFB1" }}
-                  className="text-sm text-blue-600 hover:underline"
+                <Link
+                  to={ROUTES.FORGOT_PASSWORD}
+                  className="text-sm  hover:underline !text-[#8DAFB1]"
                 >
                   Forget Your Password?
-                </a>
+                </Link>
               </div>
               <Button
                 className="w-full text-amber-50 py-2 rounded-md hover:bg-blue-700 transition"

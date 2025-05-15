@@ -70,14 +70,9 @@ const router = createBrowserRouter([
         element: <EditBlogCharacterPage/>,
       },
       {
-        path: ROUTES.FORGOT_PASSWORD,
-        element: <ForgotPasswordPage/>,
-      },
-      {
         path: ROUTES.REVIEW_COMIC,
         element: <ReviewPage/>,
       },
-
       {
         path: ROUTES.REVIEW_INSIGHT,
         element: <InsightPage/>,
@@ -90,10 +85,20 @@ const router = createBrowserRouter([
         path: ROUTES.SEARCH,
         element: <SearchResultPage/>,
       },
-
+      {
+        path: ROUTES.DASHBOARD,
+        element: <DashboardPage/>,
+      },
+      {
+        path: ROUTES.FAVOURITE,
+        element: <FavouritePage/>,
+      },
+      {
+        path: ROUTES.USERS,
+        element: <UserPage/>,
+      },
     ],
   },
-
   {
     path: ROUTES.LOGIN,
     element: <LoginPage/>,
@@ -107,39 +112,13 @@ const router = createBrowserRouter([
     element: <Callback/>,
   },
   {
-    path: ROUTES.DASHBOARD,
-    element: <DashboardPage/>,
-  },
-  {
     path: ROUTES.FORGOT_PASSWORD,
     element: <ForgotPasswordPage/>,
-  },
-
-  // {
-  //   path: ROUTES.USER_BY_USERNAME,
-  //   element: <UserPage />,
-  // },
-  {
-    path: ROUTES.USERS,
-    element: <UserPage/>,
-  },
-  {
-    path: ROUTES.COMMENT,
-    element: <CommentPage/>,
-  },
-  {
-    path: ROUTES.REPORT,
-    element: <ReportPage/>,
-  },
-  {
-    path: ROUTES.FAVOURITE,
-    element: <FavouritePage/>,
   },
   {
     path: ROUTES.COMMENT_ADMIN,
     element: <CommentAdminPage/>,
   },
-
   {
     path: '/admin',
     element: <AdminLayout />,

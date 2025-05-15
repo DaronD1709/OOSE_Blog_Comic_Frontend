@@ -11,7 +11,7 @@ const { Title, Text } = Typography;
 
 const ForgotPasswordPage = () => {
   const [form] = Form.useForm();
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const navigate = useNavigate();
 
   // -----Chưa có logic kiểm tra email-----

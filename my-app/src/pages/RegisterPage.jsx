@@ -18,7 +18,7 @@ import {
   sentOTPAPI,
 } from "../services/otpService.js";
 import { IMAGE_URL } from "../constants/images.js";
-import { URL_BACKEND } from "../constants/api.js";
+import { ROUTES, URL_BACKEND } from '../constants/api.js'
 import checked from '/src/assets/images/checked.png'
 
 const RegisterPage = () => {
@@ -167,7 +167,7 @@ const RegisterPage = () => {
                   <Link
                     style={{ color: "#8DAFB1" }}
                     className="text-blue-600 hover:underline"
-                    to={"./23"}
+                    to={ROUTES.LOGIN}
                   >
                     Go to login
                   </Link>
@@ -315,7 +315,7 @@ const RegisterPage = () => {
                 className={"!mt-5"}
                 type={"primary"}
                 onClick={() => {
-                  navigate("/login");
+                  navigate(ROUTES.LOGIN);
                 }}
               >
                 Go to login
