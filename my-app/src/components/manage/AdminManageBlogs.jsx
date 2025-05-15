@@ -5,14 +5,16 @@ import AdminHeader from '../../components/AdminHeader'
 import { useTheme } from '@mui/material'
 import { mockBlogs } from '../../data_testing/testData'
 import { useNavigate } from 'react-router-dom'
-import { getAllBlogAPI,  updateBlogStatusAPI } from '../../services/blogService.js'
+import { getAllBlogAPI, getBlogByIdAPI, updateBlogStatusAPI } from '../../services/blogService.js'
 import { useEffect, useState } from 'react'
 import { message } from 'antd'
+import { ROUTES } from '../../constants/api.js'
 
 const AdminManageBlogs = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
   const navigate = useNavigate()
+
   const [selectedRows, setSelectedRows] = useState([]) // Track selected rows
   const [blogs, setBlogs] = useState([])
 
@@ -32,7 +34,7 @@ const AdminManageBlogs = () => {
 
     try {
       // Send accept API request for selected blogs
-     await Promise.all(selectedRows.map((id) => updateBlogStatusAPI({ blogId: id, status: 'PUBLISHED' })))
+      await Promise.all(selectedRows.map((id) => updateBlogStatusAPI({ blogId: id, status: 'PUBLISHED' })))
       message.success('Bài viết đã được chấp nhận.')
       getAllBlog()
     } catch (err) {
@@ -40,10 +42,25 @@ const AdminManageBlogs = () => {
     }
   }
 
+  const navigateToBlog = async (blogId) => {
+    try {
+      const blog = await getBlogByIdAPI(blogId)
+      if (blog.type === 'COMIC') {
+
+        navigate(`${ROUTES.getViewComic(blogId)}`)
+      } else {
+        navigate(`${ROUTES.getViewCharacter(blogId)}`)
+      }
+    } catch (err) {
+      message.error('Không thể lấy được dữ liêu bài viết')
+    }
+
+  }
+
   const handleReject = async () => {
     try {
       // Send reject API request for selected blogs
-     await Promise.all(selectedRows.map((id) => updateBlogStatusAPI({ blogId: id, status: 'DENIED' })))
+      await Promise.all(selectedRows.map((id) => updateBlogStatusAPI({ blogId: id, status: 'DENIED' })))
       message.success('Bài viết đã bị từ chối.')
       getAllBlog() // Reload blogs after action
     } catch (err) {
@@ -75,7 +92,7 @@ const AdminManageBlogs = () => {
             cursor: 'pointer',
             textDecoration: 'underline',
           }}
-          onClick={() => navigate('')} // BLANK URL
+          onClick={(id) => navigateToBlog(`${params.row.id}`)} // BLANK URL
         >
           {params.value}
         </span>

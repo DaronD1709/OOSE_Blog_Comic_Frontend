@@ -66,7 +66,7 @@ function CommentPage() {
       <Tabs defaultActiveKey="1" onChange={key => setSelectedBlog(mockBlogs.find(blog => blog.id === key))}>
         {mockBlogs.map(blog => (
           <TabPane tab={blog.title} key={blog.id}>
-            <Card className="mb-4">
+            <Card className="mb-4 ">
               <Title level={4}>{blog.title}</Title>
               <p className="text-gray-500">Tác giả: {blog.author} • {new Date(blog.createdAt).toLocaleDateString('vi-VN')}</p>
               <Paragraph>{blog.content}</Paragraph>

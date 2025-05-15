@@ -7,7 +7,7 @@ export const fetchAllUsers = async () => {
   try {
     const response = await axios.get(URL_BACKEND + '/api/v1/users')
     // Có thể xử lý format data ở đây nếu muốn
-    return response.data
+    return response
   } catch (error) {
     console.error('Error fetching users:', error)
     throw error

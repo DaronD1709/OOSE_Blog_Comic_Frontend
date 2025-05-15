@@ -111,7 +111,7 @@ const ForgotPasswordPage = () => {
             <Title level={3} className="text-center mb-4">
               Xác minh OTP
             </Title>
-            <Text type="secondary" className="block text-center mb-6">
+            <Text type="secondary" className="block  text-center mb-6">
               Nhập mã OTP đã được gửi đến email của bạn
             </Text>
             <Form

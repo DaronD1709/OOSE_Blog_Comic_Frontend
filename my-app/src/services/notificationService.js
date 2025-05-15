@@ -9,3 +9,12 @@ export const getNotificationByUserIdAPI = async ({ userId }) => {
     throw error
   }
 }
+
+export const markAsReadNotificationAPI = async ({ notificationId }) => {
+  try {
+    const response = await axios.put(URL_BACKEND + `/api/v1/notifications/${notificationId}/read`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}

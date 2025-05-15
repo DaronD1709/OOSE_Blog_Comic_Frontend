@@ -1,16 +1,20 @@
 // NoticeIcon.jsx
 import React, { useState, useRef, useEffect, useContext } from 'react'
-import { getNotificationByUserIdAPI } from '../../services/notificationService.js'
+import { getNotificationByUserIdAPI, markAsReadNotificationAPI } from '../../services/notificationService.js'
 import { AuthContext } from '../../context/auth.context.jsx'
 import { URL_BACKEND_IMAGES } from '../../constants/images.js'
 import { formatDatetimeWithTimeFirst } from '../../services/helperService.js'
+import { getUserAvatar } from '../../constants/utility.js'
+import { useNavigate, useNavigation } from 'react-router-dom'
+import { ROUTES } from '../../constants/api.js'
+import { message } from 'antd'
 
 const NoticeIcon = () => {
   const [open, setOpen] = useState(false)
   const [notifications, setNotifications] = useState([])
   const { user } = useContext(AuthContext)
   const ref = useRef()
-
+  const navigate = useNavigate()
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target)) setOpen(false)
@@ -37,12 +41,20 @@ const NoticeIcon = () => {
     setNotifications(notifications.map((noti) => ({ ...noti, read: true })))
   }
 
-  const handleNotificationClick = (notificationId) => {
-    setNotifications(
-      notifications.map((noti) =>
-        noti.id === notificationId ? { ...noti, read: true } : noti
+  const handleNotificationClick = async (notification) => {
+    try {
+      await markAsReadNotificationAPI({ notificationId: notification.id })
+      setNotifications(
+        notifications.map((noti) =>
+          noti.id === notification.id ? { ...noti, read: true } : noti
+        )
       )
-    )
+    } catch (err) {
+      message.error('Không thể đánh dấu đã đọc message')
+    } finally {
+      navigate(notification.url)
+    }
+
   }
 
   const unreadCount = notifications.filter((noti) => !noti.read).length
@@ -100,17 +112,18 @@ const NoticeIcon = () => {
                 {notifications.map((item) => (
                   <li
                     key={item.id}
-                    className={`flex gap-4 px-4 py-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 relative transition-all duration-200 ${
+                    className={`flex gap-4 px-4 py-4 !hover:bg-gray-50  cursor-pointer   border-b border-gray-100 last:border-b-0 relative transition-all duration-200 ${
                       !item.read ? 'bg-blue-50/50' : ''
                     }`}
-                    onClick={() => handleNotificationClick(item.id)}
+                    onClick={() => handleNotificationClick(item)}
                   >
                     <img
-                      src={item.sender.loginType === 'LOCAL' ? `${URL_BACKEND_IMAGES}/${item.sender.avatar}` : `${item.sender.avatar}`}
+
+                      src={getUserAvatar(item.sender.avatar)}
                       alt="avatar"
-                      className="w-12 h-12 rounded-full object-cover ring-2 ring-offset-2 ring-blue-100"
+                      className="w-12  h-12 rounded-full object-cover ring-2 ring-offset-2 ring-blue-100"
                     />
-                    <div className="flex-1 min-w-0 pr-6 relative">
+                    <div className="flex-1  min-w-0 pr-6 relative">
                       <div
                         className={`text-gray-900 text-sm leading-relaxed ${
                           !item.read ? 'font-medium' : ''
@@ -138,7 +151,7 @@ const NoticeIcon = () => {
           </div>
           <div className="p-3 bg-gray-50 border-t border-gray-100">
             <button
-              className="w-full py-2 px-4 bg-white hover:bg-gray-100 text-gray-700 rounded-lg text-sm font-medium transition-all duration-200 border border-gray-200 hover:border-gray-300"
+              className="w-full  py-2 px-4 bg-white hover:bg-gray-100 text-gray-700 rounded-lg text-sm font-medium transition-all duration-200 border border-gray-200 hover:border-gray-300"
               onClick={handleClear}
             >
               Xoá tất cả thông báo

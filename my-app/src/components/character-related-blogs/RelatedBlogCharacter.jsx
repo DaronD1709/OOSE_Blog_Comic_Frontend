@@ -1,3 +1,6 @@
+// ✅ Đã style lại theo chuẩn Tailwind, responsive, dễ đọc
+// 📁 File: components/character-related-blogs/RelatedBlogCharacter.jsx
+
 import { Avatar, Image, message } from 'antd'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
@@ -6,76 +9,41 @@ import {
   getBlogComicAPI,
   getInsightsComicAPI,
   getRelatedCharactersAPI,
-} from '../../services/blogService.js'
-import { URL_BACKEND_IMAGES } from '../../constants/images.js'
-import { ROUTES } from '../../constants/api.js'
+} from '../../services/blogService'
+import { URL_BACKEND_IMAGES } from '../../constants/images'
+import { ROUTES } from '../../constants/api'
 
-const loadListBlog = ({ blogs, type }) => {
-  return (
-    <>
-      {blogs.map((char) => (
-        <div key={char.id}>
-          <div className={'flex my-4 mx-1 items-center rounded bg-[#FFFFFF]'}>
-            <Image
-              src={`${URL_BACKEND_IMAGES}/${char.thumbnail}`}
-              className={'!w-[80px] !mr-2 !h-[80px]' + ' !object-cover'}
-            />
-            <Link
-              className={'!text-[#520044] !underline'}
-              to={type === 'CHARACTER' ? `${ROUTES.getViewCharacter(char.id)}` : `${ROUTES.getViewComic(char.id)}`}
-            >
-              {char.title}
-            </Link>
-          </div>
-        </div>
-      ))}
-    </>
-  )
-}
+const SectionTitle = ({ children }) => (
+  <div className="text-[#520044] text-xl font-bold underline underline-offset-4 mb-3">
+    {children}
+  </div>
+)
 
-const loadBlog = ({ blog, type }) => {
-  return (
-    <>
-      <div className={'p-1 font-bold underline text-[#520044] text-xl !text-left '}>
-      </div>
-      <Image
-        src={`${URL_BACKEND_IMAGES}/${blog.thumbnail}`}
-        className={'!border  !rounded' + ' '}
-      />
-      <Link to={type === 'CHARACTER' ? `${ROUTES.getViewCharacter(blog.id)}` : `${ROUTES.getViewComic(blog.id)}`}>
-        <div className={'!p-2 hover:bg-[#D9D8D8] hover:underline text-[18px] text-black mb-5'}>
-          {blog.title}
-        </div>
-      </Link>
-    </>
-  )
-}
+const BlogItem = ({ blog, type }) => (
+  <div className="flex items-center gap-4 p-3 mb-3 rounded-lg bg-white shadow hover:bg-gray-100 transition-all">
+    <Image
+      src={`${URL_BACKEND_IMAGES}/${blog.thumbnail}`}
+      preview={false}
+      className="w-20 h-20 rounded object-cover"
+    />
+    <Link
+      to={type === 'CHARACTER' ? ROUTES.getViewCharacter(blog.id) : ROUTES.getViewComic(blog.id)}
+      className="text-[#520044] font-semibold underline hover:text-[#73005f]"
+    >
+      {blog.title}
+    </Link>
+  </div>
+)
 
-const loadListBlogIcon = (blogs) => {
-  return (
-    <>
-      {blogs.map((char) => (
-        <div key={char.id} className={'my-4'}>
-          <Avatar
-            src={`${URL_BACKEND_IMAGES}/${char.thumbnail}`}
-            className={'!w-[60px] !h-[60px] !object-fill'}
-          />
-        </div>
-      ))}
-    </>
-  )
-}
+const BlogIcon = ({ blog }) => (
+  <div className="my-3">
+    <Avatar
+      src={`${URL_BACKEND_IMAGES}/${blog.thumbnail}`}
+      className="!w-20 !h-20 border rounded-full object-cover"
+    />
+  </div>
+)
 
-const loadBlogIcon = (blog) => {
-  return (
-    <>
-      <Avatar
-        src={`${URL_BACKEND_IMAGES}/${blog.thumbnail}`}
-        className={'!w-[60px] !h-[60px] !object-fill'}
-      />
-    </>
-  )
-}
 export const RelatedBlogCharacter = ({
   hasBlog,
   blogComic,
@@ -88,223 +56,133 @@ export const RelatedBlogCharacter = ({
   const [relatedInsightBlogs, setRelatedInsightBlogs] = useState(null)
   const [relatedBlogComic, setRelatedBlogComic] = useState(null)
 
-  const getCharacters = async (blogId) => {
-    try {
-      const res = await getRelatedCharactersAPI(blogId)
-      setRelatedCharacters(res)
-    } catch (error) {
-      message.error('Không thể lấy danh sách nhân vật ')
-    }
-  }
-  const getInsight = async (blogId) => {
-    try {
-      const res = await getInsightsComicAPI(blogId)
-      setRelatedInsightBlogs(res)
-    } catch (error) {
-      message.error(
-        'Không thể lấy danh sách các bài viêt cảm hứng từ nhân vật này '
-      )
-    }
-  }
-
-  const getComic = async (blogId) => {
-    try {
-      const res = await getBlogComicAPI(blogId)
-      setRelatedBlogComic(res)
-    } catch (error) {
-      message.error('Không thể lấy bài viết về truyện liên quan')
-    }
-  }
-  const getCharacter = async (blogId) => {
-    try {
-      const res = await getBlogCharacterAPI(blogId)
-      setRelatedCharacters(res)
-    } catch (error) {
-      message.error('Không thể lấy bài viết về truyện liên quan')
-    }
-  }
-
   useEffect(() => {
     if (blogType === 'CHARACTER') {
-      if (blogComic !== null) {
-        getCharacters(blogComic.id)
-      }
-      if (blogCharacterId !== null) {
-        getInsight(blogCharacterId)
-      }
+      if (blogComic) getCharacters(blogComic.id)
+      if (blogCharacterId) getInsight(blogCharacterId)
     } else if (blogType === 'COMIC') {
-      if (blogComic !== null) {
+      if (blogComic) {
         getCharacters(blogComic.id)
         getInsight(blogComic.id)
       }
     } else if (blogType === 'INSIGHT') {
-      if (blogInsight.comicId!==null){
-        getComic(blogInsight.comicId)
-
-      }
-      if (blogInsight.blogCharacterId) {
-        getCharacter(blogInsight.blogCharacterId)
-      }
+      if (blogInsight?.comicId) getComic(blogInsight.comicId)
+      if (blogInsight?.blogCharacterId) getCharacter(blogInsight.blogCharacterId)
     }
-  }, [blogComic, blogCharacterId, blogType])
+  }, [blogComic, blogCharacterId, blogInsight, blogType])
+
+  const getCharacters = async (id) => {
+    try {
+      const res = await getRelatedCharactersAPI(id)
+      setRelatedCharacters(res)
+    } catch {
+      message.error('Không thể lấy danh sách nhân vật')
+    }
+  }
+
+  const getInsight = async (id) => {
+    try {
+      const res = await getInsightsComicAPI(id)
+      setRelatedInsightBlogs(res)
+    } catch {
+      message.error('Không thể lấy danh sách bài viết cảm hứng')
+    }
+  }
+
+  const getComic = async (id) => {
+    try {
+      const res = await getBlogComicAPI(id)
+      setRelatedBlogComic(res)
+    } catch {
+      message.error('Không thể lấy bài viết truyện')
+    }
+  }
+
+  const getCharacter = async (id) => {
+    try {
+      const res = await getBlogCharacterAPI(id)
+      setRelatedCharacters(res)
+    } catch {
+      message.error('Không thể lấy bài viết nhân vật')
+    }
+  }
+
+  if (loadType === 'Icon') {
+    return (
+      <div className="h-[700px] mt-20 grid grid-cols-1 place-items-center gap-3">
+        {hasBlog && blogComic && <BlogIcon blog={blogComic} />}
+        {relatedCharacters?.map((char) => <BlogIcon key={char.id} blog={char} />)}
+        {relatedInsightBlogs?.map((blog) => <BlogIcon key={blog.id} blog={blog} />)}
+        {relatedBlogComic && <BlogIcon blog={relatedBlogComic} />}
+      </div>
+    )
+  }
+
   return (
-    <>
-      {loadType === 'Full' && (
-        <div className={'h-[700px] overflow-y-scroll'}>
-          {blogType !== null && blogType === 'CHARACTER' && (
+    <div className="h-[700px] overflow-y-auto px-2 space-y-6">
+      {blogType === 'CHARACTER' && (
+        <>
+          {hasBlog && blogComic && <BlogItem blog={blogComic} type="COMIC" />}
+
+          {relatedCharacters?.length > 0 && (
             <>
-              {hasBlog === true && (
-                <>
-                  <div className={'p-1  hover:cursor-pointer'}>
-                    {blogComic !== undefined && loadBlog({ blog: blogComic, type: 'COMIC' })}
-                    {relatedCharacters !== null &&
-                      relatedCharacters.length > 0 && (
-                        <>
-                          <div
-                            className={
-                              'p-1 font-bold underline text-[#520044] text-xl !text-left  underline-offset-4'
-                            }
-                          >
-                            Nhân vật khác
-                          </div>
-
-                          {loadListBlog({ blogs: relatedCharacters, type: 'CHARACTER' })}
-                        </>
-                      )}
-                  </div>
-                </>
-              )}
-              {relatedInsightBlogs !== null && relatedInsightBlogs !== undefined &&
-                relatedInsightBlogs.length > 0 && (
-                  <div>
-                    {
-                      <>
-                        <div
-                          className={
-                            ' font-bold underline text-[#520044] text-xl !text-left  underline-offset-6'
-                          }
-                        >
-                          Bài viết bình luận về nhân vật
-                        </div>
-
-                        {loadListBlog({ blogs: relatedInsightBlogs, type: 'COMIC' })}
-                      </>
-                    }
-                  </div>
-                )}
+              <SectionTitle>Nhân vật khác</SectionTitle>
+              {relatedCharacters.map((char) => (
+                <BlogItem key={char.id} blog={char} type="CHARACTER" />
+              ))}
             </>
           )}
 
-          {blogType !== null && blogType === 'COMIC' && (
+          {relatedInsightBlogs?.length > 0 && (
             <>
-              <div className={' p-1 hover:cursor-pointer'}>
-                {relatedCharacters !== null && relatedCharacters.length > 0 && (
-                  <>
-                    <div
-                      className={
-                        ' font-bold underline text-[#520044] text-xl !text-left  underline-offset-4'
-                      }
-                    >
-                      Bài viết về nhân vật thuộc truyện:
-                    </div>
-
-                    {loadListBlog({ blogs: relatedCharacters, type: 'COMIC' })}
-                  </>
-                )}
-                {relatedInsightBlogs !== null &&
-                  relatedInsightBlogs.length > 0 && (
-                    <>
-                      <div
-                        className={
-                          ' font-bold underline text-[#520044] text-xl !text-left  underline-offset-4'
-                        }
-                      >
-                        Bài viết bình luận về truyện:
-                      </div>
-
-                      {loadListBlog({ blogs: relatedInsightBlogs, type: 'COMIC' })}
-                    </>
-                  )}
-              </div>
+              <SectionTitle>Bài viết bình luận về nhân vật</SectionTitle>
+              {relatedInsightBlogs.map((blog) => (
+                <BlogItem key={blog.id} blog={blog} type="COMIC" />
+              ))}
             </>
           )}
-
-          {blogType !== null && blogType === 'INSIGHT' && (
-            <>
-              <div className={' p-1 hover:cursor-pointer '}>
-                {relatedBlogComic !== null && relatedBlogComic !== undefined && (
-                  <>
-                    <div
-                      className={
-                        ' font-bold underline text-[#520044] text-xl !text-left  underline-offset-4 mb-3'
-                      }
-                    >
-                      Truyện/Tiểu thuyết liên quan
-                    </div>
-
-                    {loadBlog({ blog: relatedBlogComic, type: 'COMIC' })}
-                  </>
-                )}
-                {relatedCharacters !== null && relatedCharacters !== undefined && (
-                  <>
-                    <div
-                      className={
-                        ' font-bold underline text-[#520044] text-xl !text-left  underline-offset-4 mb-3'
-                      }
-                    >
-                      Bài viết về nhân vật liên quan
-                    </div>
-
-                    {loadBlog({ blog: relatedCharacters, type: 'CHARACTER' })}
-                  </>
-                )}
-              </div>
-            </>
-          )}
-        </div>
+        </>
       )}
-      {loadType === 'Icon' && (
-        <div className={'h-[700px] mt-20'}>
-          {blogType !== null && blogType === 'CHARACTER' && (
+
+      {blogType === 'COMIC' && (
+        <>
+          {relatedCharacters?.length > 0 && (
             <>
-              {hasBlog === true && (
-                <>
-                  {loadBlogIcon(blogComic)}
-                  {relatedCharacters !== null &&
-                    relatedCharacters.length > 0 &&
-                    loadListBlogIcon(relatedCharacters)}
-                </>
-              )}
-              <div>
-                {relatedInsightBlogs !== null &&
-                  relatedInsightBlogs.length > 0 && (
-                    <>{loadListBlogIcon(relatedInsightBlogs)}</>
-                  )}
-              </div>
-            </>
-          )}
-          {blogType !== null && blogType === 'COMIC' && (
-            <>
-              {relatedCharacters !== null && relatedCharacters.length > 0 && (
-                <>{loadListBlogIcon(relatedCharacters)}</>
-              )}
-              {relatedInsightBlogs !== null &&
-                relatedInsightBlogs.length > 0 && (
-                  <>{loadListBlogIcon(relatedInsightBlogs)}</>
-                )}
+              <SectionTitle>Bài viết về nhân vật thuộc truyện</SectionTitle>
+              {relatedCharacters.map((char) => (
+                <BlogItem key={char.id} blog={char} type="COMIC" />
+              ))}
             </>
           )}
 
-          {blogType !== null && blogType === 'INSIGHT' && (
+          {relatedInsightBlogs?.length > 0 && (
             <>
-              {relatedBlogComic !== null && relatedBlogComic !== undefined && relatedBlogComic && (
-                <>{loadBlogIcon(relatedBlogComic)}</>
-              )}
-              {relatedCharacters !== null && <>{loadBlogIcon(relatedCharacters)}</>}
+              <SectionTitle>Bài viết bình luận về truyện</SectionTitle>
+              {relatedInsightBlogs.map((blog) => (
+                <BlogItem key={blog.id} blog={blog} type="COMIC" />
+              ))}
             </>
           )}
-        </div>
+        </>
       )}
-    </>
+
+      {blogType === 'INSIGHT' && (
+        <>
+          {relatedBlogComic && (
+            <>
+              <SectionTitle>Truyện/Tiểu thuyết liên quan</SectionTitle>
+              <BlogItem blog={relatedBlogComic} type="COMIC" />
+            </>
+          )}
+
+          {relatedCharacters && (
+            <>
+              <SectionTitle>Bài viết về nhân vật liên quan</SectionTitle>
+              <BlogItem blog={relatedCharacters} type="CHARACTER" />
+            </>
+          )}
+        </>
+      )}
+    </div>
   )
 }
