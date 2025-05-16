@@ -7,6 +7,7 @@ import { saveBlogCharacterAPI } from '../services/blogService.js'
 import { SearchBlogComic } from '../components/blog/SearchBlogComic.jsx'
 import { NewCharacterInfo } from '../components/blog/NewCharacterInfo.jsx'
 import TextArea from 'antd/es/input/TextArea.js'
+import { validate } from '../utils/validate.js'
 
 const characterData = {
   vietName: ' ',
@@ -49,7 +50,7 @@ export const NewBlogCharacterPage = () => {
       authorId: user.id,
       content: result,
       character: character,
-      comicId: blogComic === null ? null : blogComic.id,
+      comicId: validate(blogComic) ? null : blogComic.id,
       introduction: introduction
     }
     try {

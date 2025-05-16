@@ -6,7 +6,7 @@ import { formatDatetimeWithTimeFirst } from '../../services/helperService.js'
 import { Image, message } from 'antd'
 import { getCommentCountOfBlogAPI } from '../../services/commentService.js'
 import { getFavouriteCountBlogAPI } from '../../services/favoriteService.js'
-import { getUserAvatar } from '../../constants/utility.js'
+import { getThumbnail, getUserAvatar } from '../../constants/utility.js'
 import mythAvatar from '/src/assets/images/anonymous.png'
 import { validate } from '../../utils/validate.js'
 
@@ -74,7 +74,7 @@ const HorizontalCard = ({
         {/* thumbnail */}
         <div className="relative w-65 h-48 flex-shrink-0">
           <Image
-            src={`${URL_BACKEND_IMAGES}/${thumbnail}`}
+            src={`${getThumbnail(thumbnail)}`}
             alt={title}
             className="!object-cover !w-65 !h-48 !rounded-lg !flex-shrink-0"
           />

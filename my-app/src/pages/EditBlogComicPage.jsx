@@ -18,6 +18,7 @@ import { Link, useParams } from 'react-router-dom'
 import { DownOutlined } from '@ant-design/icons'
 import { URL_BACKEND_IMAGES } from '../constants/images.js'
 import TextArea from 'antd/es/input/TextArea.js'
+import { validate } from '../utils/validate.js'
 
 const items = [
   {
@@ -106,7 +107,7 @@ export const EditBlogComicPage = () => {
           content: result,
           categories: selectedCategory.map(cat => cat.id),
           tags: selectedTag.map(tag => tag.id),
-          comicId: blogComic !== null ? blogComic.id : null,
+          comicId: validate(blogComic)  ? blogComic.id : null,
           blogCharacterId: blogCharacter !== null ? blogCharacter.id : null,
           introduction: introduction
         }

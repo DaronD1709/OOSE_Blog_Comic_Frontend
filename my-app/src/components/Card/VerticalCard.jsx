@@ -14,6 +14,7 @@ import {
 } from '@ant-design/icons'
 import { getCommentCountOfBlogAPI } from '../../services/commentService.js'
 import { getFavouriteCountBlogAPI } from '../../services/favoriteService.js'
+import { getThumbnail } from '../../constants/utility.js'
 
 const VerticalCard = (props) => {
   const {
@@ -74,64 +75,64 @@ const VerticalCard = (props) => {
           <div style={{ position: 'relative' }}>
             <img
               alt={title}
-              src={`${URL_BACKEND_IMAGES}/${thumbnail}`}
+              src={`${getThumbnail(thumbnail)}`}
               className="group-hover:scale-105 transition-transform duration-300"
               style={{ width: '100%', height: 200, objectFit: 'cover' }}
             />
 
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 10,
-                  left: 10,
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '4px',
-                }}
-              >
-                {categories.map((tag, index) => (
-                  <span
-                    key={tag.id}
-                    style={{
-                      background: 'linear-gradient(to right, #fb7185, #f43f5e)',
-                      padding: '4px 10px',
-                      color: 'white',
-                      borderRadius: 20,
-                      fontSize: 12,
-                      fontWeight: 500,
-                    }}
-                  >
+            <div
+              style={{
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '4px',
+              }}
+            >
+              {categories.map((tag, index) => (
+                <span
+                  key={tag.id}
+                  style={{
+                    background: 'linear-gradient(to right, #fb7185, #f43f5e)',
+                    padding: '4px 10px',
+                    color: 'white',
+                    borderRadius: 20,
+                    fontSize: 12,
+                    fontWeight: 500,
+                  }}
+                >
                   {tag.name}
                 </span>
-                ))}
-              </div>
-              <div
-                style={{
-                  marginTop:'5px',
-                  position: 'absolute',
-                  top: 40,
-                  left: 10,
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '4px',
-                }}
-              >
-                {tags.map((category, index) => (
-                  <span
-                    key={category.id}
-                    style={{
-                      background: '#6366f1',
-                      padding: '3px 8px',
-                      color: 'white',
-                      borderRadius: 16,
-                      fontSize: 11,
-                      fontWeight: 500,
-                    }}
-                  >
+              ))}
+            </div>
+            <div
+              style={{
+                marginTop: '5px',
+                position: 'absolute',
+                top: 40,
+                left: 10,
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '4px',
+              }}
+            >
+              {tags.map((category, index) => (
+                <span
+                  key={category.id}
+                  style={{
+                    background: '#6366f1',
+                    padding: '3px 8px',
+                    color: 'white',
+                    borderRadius: 16,
+                    fontSize: 11,
+                    fontWeight: 500,
+                  }}
+                >
                   {category.name}
                 </span>
-                ))}
-              </div>
+              ))}
+            </div>
           </div>
         }
       >

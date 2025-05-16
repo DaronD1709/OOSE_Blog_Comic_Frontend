@@ -13,6 +13,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion'
 import { getUserCountByRoleAPI } from '../services/userService.js'
 import { getStatisticAPI } from '../services/blogService.js'
+import { validate } from '../utils/validate.js'
 
 // Thêm logic lấy data
 
@@ -67,7 +68,7 @@ const DashboardPage = () => {
   return (
     <>
       {
-        userStats !== null && dailyData !== null
+        validate(userStats) && validate(dailyData)
         &&
         <div className="bg-[#000000] min-h-screen text-white px-4 py-6 sm:ml-32">
           <Title level={3} style={{ color: 'white' }}>Thống kê hệ thống</Title>

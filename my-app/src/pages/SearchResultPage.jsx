@@ -23,6 +23,7 @@ import { URL_BACKEND_IMAGES } from '../constants/images.js'
 import { getUsersByIdsAPI } from '../services/userService.js'
 import VerticalCard from '../components/Card/VerticalCard.jsx'
 import HorizontalCard from '../components/Card/HorizontalCard.jsx'
+import { validate } from '../utils/validate.js'
 
 // Trên thanh Navbar (components/navigation/Navbar.jsx) sẽ có 1 thanh search và 1 button "Tìm kiếm nâng cao"
 // User sẽ chọn cách search ở thanh Navbar (đối với search by title thì nhập trực tiếp vô thanh seach bar)
@@ -224,7 +225,7 @@ const SearchResultPage = () => {
       <Title level={4} className="mb-3">
         Blogger liên quan
       </Title>
-      {bloggers !== null && (
+      {validate(bloggers) && (
         <Row gutter={[16, 16]}>
           {bloggers.map((blogger) => (
             <Col xs={24} sm={12} md={6} key={blogger.id}>

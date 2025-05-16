@@ -13,6 +13,7 @@ import {
 import { URL_BACKEND_IMAGES } from '../../constants/images'
 import { ROUTES } from '../../constants/api'
 import { validate } from '../../utils/validate.js'
+import { getThumbnail } from '../../constants/utility.js'
 
 const SectionTitle = ({ children }) => (
   <div className="text-[#520044] text-xl font-bold underline underline-offset-4 mb-3">
@@ -23,7 +24,7 @@ const SectionTitle = ({ children }) => (
 const BlogItem = ({ blog, type }) => (
   <div className="flex items-center gap-4 p-3 mb-3 rounded-lg bg-white shadow hover:bg-gray-100 transition-all">
     <Image
-      src={`${URL_BACKEND_IMAGES}/${blog.thumbnail}`}
+      src={`${getThumbnail(blog.thumbnail)}`}
       preview={false}
       className="w-20 h-20 rounded object-cover"
     />

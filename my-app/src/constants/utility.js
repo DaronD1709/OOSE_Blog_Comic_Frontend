@@ -19,3 +19,11 @@ export const getUserAvatar = (avatar) => {
     return getLocalAvatar(avatar)
   }
 }
+
+export const getThumbnail = (thumbnail) => {
+  if (thumbnail.startsWith('https://')) {
+    return thumbnail
+  } else {
+    return getLocalAvatar(thumbnail)
+  }
+}
