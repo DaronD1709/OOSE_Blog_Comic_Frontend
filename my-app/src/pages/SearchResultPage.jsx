@@ -141,12 +141,14 @@ const SearchResultPage = () => {
             <Search
               onSearch={searchByKeyword}
               placeholder="Nhập từ khóa tìm kiếm..."
-              className="w-full relative"
+              className="w-full"
               size="large"
               prefix={<SearchOutlined className="text-gray-400" />}
               style={{
                 borderRadius: "12px",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                position: "relative",
+                zIndex: 1,
               }}
             />
           </div>
