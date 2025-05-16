@@ -18,8 +18,8 @@ import {
   sentOTPAPI,
 } from "../services/otpService.js";
 import { IMAGE_URL } from "../constants/images.js";
-import { ROUTES, URL_BACKEND } from '../constants/api.js'
-import checked from '/src/assets/images/checked.png'
+import { ROUTES, URL_BACKEND } from "../constants/api.js";
+import checked from "/src/assets/images/checked.png";
 
 const RegisterPage = () => {
   const location = useLocation();
@@ -95,91 +95,129 @@ const RegisterPage = () => {
   return (
     <>
       {step === 1 && (
-        <div className="bg-gray-100 flex items-center justify-center min-h-screen">
-          <div className="flex w-full max-w-5xl bg-white rounded-lg shadow-lg overflow-hidden">
-            {/* Left Section: Login Form */}
+        <div className="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+          <div className="flex w-full max-w-5xl bg-white rounded-xl shadow-xl overflow-hidden">
+            {/* Left Section: Register Form */}
             <div className="w-1/2 p-10">
               <div className="flex items-center mb-8">
                 <div
                   style={{ color: "#8DAFB1" }}
-                  className="text-2xl font-bold"
+                  className="text-3xl font-bold"
                 >
                   Comic
                 </div>
               </div>
-              <h1 className="text-3xl font-bold mb-2">Create an Account</h1>
-              <p className="text-gray-500 mb-6">
+              <h1 className="text-3xl font-bold mb-3">Create an Account</h1>
+              <p className="text-gray-500 mb-8 text-base">
                 Join now to streamline your experience from day one
               </p>
               <Form
-                className="space-y-4 mt-4"
+                className="space-y-5"
                 form={form}
                 initialValues={initalValues}
                 onFinish={(values) => onFinish(values)}
                 layout={"vertical"}
               >
-                <Form.Item name="displayName" label="Display name">
-                  <Input placeholder={"Input display name"} />
+                <Form.Item
+                  name="displayName"
+                  label={
+                    <span className="text-gray-700 font-medium">
+                      Display name
+                    </span>
+                  }
+                >
+                  <Input
+                    className="h-11 rounded-lg border-gray-200 focus:border-[#8DAFB1] focus:ring-2 focus:ring-[#8DAFB1]/20 transition-all duration-300"
+                    placeholder="Enter your display name"
+                  />
                 </Form.Item>
 
-                <Form.Item name="username" label="Username (For Login)">
-                  <Input placeholder={"Input username"} />
+                <Form.Item
+                  name="username"
+                  label={
+                    <span className="text-gray-700 font-medium">
+                      Username (For Login)
+                    </span>
+                  }
+                >
+                  <Input
+                    className="h-11 rounded-lg border-gray-200 focus:border-[#8DAFB1] focus:ring-2 focus:ring-[#8DAFB1]/20 transition-all duration-300"
+                    placeholder="Choose a username"
+                  />
                 </Form.Item>
 
-                <Form.Item name="email" label="Email">
-                  <Input placeholder={"Input Email"} />
+                <Form.Item
+                  name="email"
+                  label={
+                    <span className="text-gray-700 font-medium">Email</span>
+                  }
+                >
+                  <Input
+                    className="h-11 rounded-lg border-gray-200 focus:border-[#8DAFB1] focus:ring-2 focus:ring-[#8DAFB1]/20 transition-all duration-300"
+                    placeholder="Enter your email"
+                  />
                 </Form.Item>
 
-                <Form.Item name="password" label="Password">
-                  <Input.Password placeholder={"Input password"} />
+                <Form.Item
+                  name="password"
+                  label={
+                    <span className="text-gray-700 font-medium">Password</span>
+                  }
+                >
+                  <Input.Password
+                    className="h-11 rounded-lg border-gray-200 focus:border-[#8DAFB1] focus:ring-2 focus:ring-[#8DAFB1]/20 transition-all duration-300"
+                    placeholder="Create a password"
+                  />
                 </Form.Item>
 
                 <Button
-                  className="w-full  "
-                  type="primary"
-                  style={{ backgroundColor: "#8DAFB1" }}
+                  className="w-full h-11 bg-[#8DAFB1] hover:bg-[#7A9A9C] text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                   onClick={() => {
                     form.submit();
                   }}
                   loading={isLoading}
                 >
-                  Register
+                  Create Account
                 </Button>
               </Form>
 
-              <div className="mt-4 text-center ">
-                <Divider plain={"false"}>Or Register With</Divider>
-                <div className="flex justify-center gap-3 mb-4  mt-2">
+              <div className="mt-8">
+                <Divider className="text-gray-400">Or Register With</Divider>
+                <div className="flex justify-center gap-4 mb-6">
                   <Button
                     onClick={handleGoogleLogin}
-                    className="flex  items-center px-4 w-full justify-center py-2 border border-gray-300 rounded-md hover:bg-gray-100"
+                    className="flex items-center justify-center gap-2 w-full h-11 px-6 border border-gray-200 rounded-lg hover:bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md"
                   >
                     <img
                       src="https://www.google.com/favicon.ico"
                       alt="Google"
-                      className="w-5 h-5 "
+                      className="w-5 h-5"
                     />
-                    Google
+                    <span className="font-medium text-gray-700">Google</span>
                   </Button>
                 </div>
-                <p className="mt-5 text-sm text-gray-600 ">
+                <p className="text-center text-gray-600">
                   Already have an account?{" "}
                   <Link
-                    style={{ color: "#8DAFB1" }}
-                    className="text-blue-600 hover:underline"
                     to={ROUTES.LOGIN}
+                    className="font-medium !text-[#8DAFB1] hover:text-[#7A9A9C] hover:underline transition-colors duration-200"
                   >
                     Go to login
                   </Link>
                 </p>
               </div>
+
               <div className="mt-8 text-xs text-gray-500 flex justify-between">
-                <p>Copyright © 2025 </p>
-                <a href="#" className="hover:underline">
+                <p>Copyright © 2024</p>
+                <a
+                  href="#"
+                  className="hover:text-gray-700 transition-colors duration-200"
+                >
                   Privacy Policy
                 </a>
               </div>
             </div>
+
             {/* Right Section: Promotional Content */}
             <div className="w-1/2 bg-blue-600 text-white flex flex-col justify-center">
               <img
@@ -191,68 +229,86 @@ const RegisterPage = () => {
           </div>
         </div>
       )}
+
       {step === 2 && (
-        <div className="bg-gray-100 flex items-center justify-center min-h-screen">
-          <div className="flex w-full max-w-5xl bg-white rounded-lg shadow-lg overflow-hidden">
-            {/* Left Section: Login Form */}
+        <div className="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+          <div className="flex w-full max-w-5xl bg-white rounded-xl shadow-xl overflow-hidden">
+            {/* Left Section: OTP Form */}
             <div className="w-1/2 p-10">
-              <div className="flex items-center mb-8"></div>
-              <h1 className="text-3xl font-bold mb-2">Verify Your Email </h1>
-              <p className="text-gray-500 mb-6">
-                Join now to streamline your experience from day one
+              <div className="flex items-center mb-8">
+                <div
+                  style={{ color: "#8DAFB1" }}
+                  className="text-3xl font-bold"
+                >
+                  Comic
+                </div>
+              </div>
+              <h1 className="text-3xl font-bold mb-3">Verify Your Email</h1>
+              <p className="text-gray-500 mb-8 text-base">
+                We've sent a verification code to your email
               </p>
               <Form
-                className="space-y-4 mt-4"
+                className="space-y-5"
                 form={form}
                 onFinish={(values) => sendOTP(values)}
                 layout={"vertical"}
               >
-                <div className={"mb-3 flex justify-center"}>
-                  <label className={"font-bold text-left"}>OTP</label>
-                </div>
-
-                <Form.Item name={"otp"}>
-                  <Input.OTP />
+                <Form.Item
+                  name="otp"
+                  label={
+                    <span className="text-gray-700 font-medium">
+                      Enter OTP Code
+                    </span>
+                  }
+                >
+                  <Input.OTP className="h-11 rounded-lg border-gray-200 focus:border-[#8DAFB1] focus:ring-2 focus:ring-[#8DAFB1]/20 transition-all duration-300" />
                 </Form.Item>
 
                 <Button
-                  className="w-full  "
-                  type="primary"
+                  className="w-full h-11 bg-[#8DAFB1] hover:bg-[#7A9A9C] text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                   onClick={() => {
                     form.submit();
                   }}
                 >
-                  Send OTP
+                  Verify Email
                 </Button>
               </Form>
+
               {localStorage.getItem("userId") === null && (
-                <>
-                  <div className={"!mt-4"}>Email</div>
-                  <div className={""}>
+                <div className="mt-6">
+                  <Form.Item
+                    label={
+                      <span className="text-gray-700 font-medium">Email</span>
+                    }
+                  >
                     <Input
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      className="h-11 rounded-lg border-gray-200 focus:border-[#8DAFB1] focus:ring-2 focus:ring-[#8DAFB1]/20 transition-all duration-300"
                     />
-                  </div>
-                </>
+                  </Form.Item>
+                </div>
               )}
-              <div className={"flex justify-start"}>
-                <Button
-                  loading={isLoading}
-                  className={"w-25 !mt-4"}
-                  onClick={resendOTP}
-                >
-                  Resend OTP
-                </Button>
-              </div>
+
+              <Button
+                loading={isLoading}
+                className="mt-4 text-[#8DAFB1] hover:text-[#7A9A9C] border-[#8DAFB1] hover:border-[#7A9A9C] transition-all duration-300"
+                onClick={resendOTP}
+              >
+                Resend OTP
+              </Button>
 
               <div className="mt-8 text-xs text-gray-500 flex justify-between">
-                <p>Copyright © 2025 </p>
-                <a href="#" className="hover:underline">
+                <p>Copyright © 2024</p>
+                <a
+                  href="#"
+                  className="hover:text-gray-700 transition-colors duration-200"
+                >
                   Privacy Policy
                 </a>
               </div>
             </div>
+
             {/* Right Section: Promotional Content */}
             <div className="w-1/2 bg-blue-600 p-10 text-white flex flex-col justify-center">
               <h2 className="text-3xl font-bold mb-4">
@@ -262,7 +318,7 @@ const RegisterPage = () => {
                 Log in to access the CRM dashboard and manage your team.
               </p>
               <div className="relative">
-                <div className="bg-white  p-4 rounded-lg shadow-lg">
+                <div className="bg-white p-4 rounded-lg shadow-lg">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-gray-100 p-3 rounded-md">
                       <p className="text-sm text-gray-600">Total Sales</p>
@@ -296,37 +352,56 @@ const RegisterPage = () => {
           </div>
         </div>
       )}
+
       {step === 3 && (
-        <div className="bg-gray-100 flex items-center justify-center min-h-screen">
-          <div className="flex w-full max-w-5xl bg-white rounded-lg shadow-lg overflow-hidden">
-            {/* Left Section: Login Form */}
+        <div className="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+          <div className="flex w-full max-w-5xl bg-white rounded-xl shadow-xl overflow-hidden">
+            {/* Left Section: Success Message */}
             <div className="w-1/2 p-10">
-              <div className="flex items-center mb-8"></div>
-              <h1 className="text-3xl font-bold mb-2">Xác thực thành công </h1>
-              <p className="text-gray-500 mb-6">
-                You now can login with your new account
+              <div className="flex items-center mb-8">
+                <div
+                  style={{ color: "#8DAFB1" }}
+                  className="text-3xl font-bold"
+                >
+                  Comic
+                </div>
+              </div>
+              <h1 className="text-3xl font-bold mb-3">
+                Verification Successful!
+              </h1>
+              <p className="text-gray-500 mb-8 text-base">
+                Your account has been verified. You can now login with your new
+                account.
               </p>
-              <div className={'flex justify-center'}>
-                <div className={'w-40 h-40 '}>
-                  <Image src={`${checked}`} preview={false}/>
+              <div className="flex justify-center mb-8">
+                <div className="w-40 h-40">
+                  <Image
+                    src={`${checked}`}
+                    preview={false}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
               </div>
               <Button
-                className={"!mt-5"}
-                type={"primary"}
+                className="w-full h-11 bg-[#8DAFB1] hover:bg-[#7A9A9C] text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                 onClick={() => {
                   navigate(ROUTES.LOGIN);
                 }}
               >
-                Go to login
+                Go to Login
               </Button>
+
               <div className="mt-8 text-xs text-gray-500 flex justify-between">
-                <p>Copyright © 2025 </p>
-                <a href="#" className="hover:underline">
+                <p>Copyright © 2024</p>
+                <a
+                  href="#"
+                  className="hover:text-gray-700 transition-colors duration-200"
+                >
                   Privacy Policy
                 </a>
               </div>
             </div>
+
             {/* Right Section: Promotional Content */}
             <div className="w-1/2 bg-blue-600 p-10 text-white flex flex-col justify-center">
               <h2 className="text-3xl font-bold mb-4">

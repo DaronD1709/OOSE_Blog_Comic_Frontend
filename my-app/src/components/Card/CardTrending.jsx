@@ -7,16 +7,18 @@ const TopReviewCard = ({ index, avatar, title, date }) => {
     <Link to={`/${slugify(title)}`}>
       <div className="w-full hover:shadow-lg transition-all duration-300 rounded-xl px-4 py-2 group">
         <div className="flex items-center gap-4">
-          {/* Avatar + Rank Badge */}
-          <div className="relative">
+          {/* Index Badge */}
+          <span className="bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full shadow-lg group-hover:scale-110 transition-transform duration-300">
+            {index}
+          </span>
+
+          {/* Avatar */}
+          <div>
             <img
               src={avatar}
               alt={title}
               className="w-12 h-12 rounded-full object-cover ring-2 ring-offset-2 ring-blue-100 group-hover:ring-blue-200 transition-all duration-300"
             />
-            <span className="absolute -top-1 -left-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full shadow-lg group-hover:scale-110 transition-transform duration-300">
-              {index}
-            </span>
           </div>
 
           {/* Text */}
