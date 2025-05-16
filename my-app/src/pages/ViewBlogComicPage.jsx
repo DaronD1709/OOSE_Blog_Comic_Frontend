@@ -42,6 +42,7 @@ import { customImageAlignStyles } from "../editor/editorCustomStyleConstant";
 import { getUserAvatar } from "../constants/utility.js";
 import { validate } from "../utils/validate.js";
 import mythAvatar from "../assets/images/anonymous.png";
+import Rating from "../components/Rating.jsx";
 
 export const ViewBlogComicPage = () => {
   const { id } = useParams();
@@ -272,11 +273,11 @@ export const ViewBlogComicPage = () => {
             />
 
             <div className="max-w-auto grow  rounded-2xl shadow-sm p-8">
-              <h1 className="font-bold text-4xl text-gray-800 py-4 leading-tight border-b border-gray-100">
+              <h1 className="font-bold text-4xl text-blue-600 text-center py-3 font-sans leading-tight border-b border-gray-100">
                 {blog.title}
               </h1>
 
-              <div className="py-6">
+              <div className="py-1">
                 <BloggerInfo
                   hasFollow={hasFollow}
                   name={
@@ -289,9 +290,23 @@ export const ViewBlogComicPage = () => {
                   onFollow={handleFollow}
                   setHasFollow={setHasFollow}
                 />
+                <Rating
+                  initialRating={blog.rating}
+                  ratingCount={blog.rateCount}
+                  user={user}
+                  blogId={blog.id}
+                  onRate={(newRating) => {
+                    // Update blog rating in state
+                    setBlog((prev) => ({
+                      ...prev,
+                      rating: newRating,
+                      rateCount: prev.rateCount + 1,
+                    }));
+                  }}
+                />
               </div>
 
-              <div className="flex flex-wrap gap-3 my-6">
+              <div className="flex flex-wrap gap-3 my-3">
                 <SelectedElement
                   selected={blog.categories}
                   type="Thể loại"
