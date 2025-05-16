@@ -275,7 +275,7 @@ export const ViewBlogCharacterPage = () => {
                   <BloggerInfo
                     hasFollow={hasFollow}
                     name={validate(blog.author) ? blog.author.displayName : 'Tài khoản không còn nữa'}
-                    avatarUrl={validate(blog.author) ? getUserAvatar(blog.author.avatar) : mythAvatar}
+                    avatarUrl={getUserAvatar(blog.author.avatar)}
                     date={formatDatetimeWithTimeFirst(blog.createdAt)}
                     onFollow={toggleFollowBlogger}
                     setHasFollow={setHasFollow}
