@@ -228,7 +228,7 @@ const SearchResultPage = () => {
         <Title level={3} className="mb-6 text-gray-800">
           Bài viết liên quan
         </Title>
-        <div className="flex flex-wrap gap-6 h-[930px] justify-start overflow-y-scroll pr-4 custom-scrollbar">
+        <div className="flex flex-wrap gap-6 h-[930px] justify-start overflow-y-scroll custom-scrollbar mr-4 pl-13">
           {blogs.length > 0 ? (
             blogs.map((comic) => <VerticalCard key={comic.id} {...comic} />)
           ) : (
