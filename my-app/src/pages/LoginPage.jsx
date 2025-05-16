@@ -36,7 +36,6 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
-      // Nếu có token, chuyển hướng về trang chính
       navigate("/");
     }
   }, [navigate]);
@@ -66,48 +65,68 @@ const LoginPage = () => {
   return (
     <>
       {contextHolder}
-      <div className="bg-gray-100  flex items-center justify-center min-h-screen">
-        <div className="flex w-full max-w-5xl bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+        <div className="flex w-full max-w-5xl bg-white rounded-xl shadow-xl overflow-hidden">
           {/* Left Section: Login Form */}
           <div className="w-1/2 p-10">
             <div className="flex items-center mb-8">
-              <div style={{ color: "#8DAFB1" }} className="text-2xl font-bold">
+              <div style={{ color: "#8DAFB1" }} className="text-3xl font-bold">
                 Comic
               </div>
             </div>
-            <h1 className="text-3xl font-bold mb-2">Welcome Back</h1>
-            <p className="text-gray-500 mb-6">
+            <h1 className="text-3xl font-bold mb-3">Welcome Back</h1>
+            <p className="text-gray-500 mb-8 text-base">
               Enter your email or username and password to access your account.
             </p>
             <Form
-              className="space-y-4 mt-4"
+              className="space-y-5"
               form={form}
               onFinish={(values) => onFinish(values)}
               layout={"vertical"}
             >
-              <Form.Item name="username" label="Email / Username">
-                <Input />
+              <Form.Item
+                name="username"
+                label={
+                  <span className="text-gray-700 font-medium">
+                    Email / Username
+                  </span>
+                }
+              >
+                <Input
+                  className="h-11 rounded-lg border-gray-200 focus:border-[#8DAFB1] focus:ring-2 focus:ring-[#8DAFB1]/20 transition-all duration-300"
+                  placeholder="Enter your email or username"
+                />
               </Form.Item>
 
-              <Form.Item name="password" label="Password">
-                <Input.Password />
+              <Form.Item
+                name="password"
+                label={
+                  <span className="text-gray-700 font-medium">Password</span>
+                }
+              >
+                <Input.Password
+                  className="h-11 rounded-lg border-gray-200 focus:border-[#8DAFB1] focus:ring-2 focus:ring-[#8DAFB1]/20 transition-all duration-300"
+                  placeholder="Enter your password"
+                />
               </Form.Item>
+
               <div className="flex items-center justify-between">
                 <label className="flex items-center">
-                  <Checkbox type="checkbox" className="mr-2" />
+                  <Checkbox className="rounded border-gray-300 text-[#8DAFB1] focus:ring-[#8DAFB1]" />
                   <span className="text-sm ml-2 text-gray-600">
                     Remember Me
                   </span>
                 </label>
                 <Link
                   to={ROUTES.FORGOT_PASSWORD}
-                  className="text-sm  hover:underline !text-[#8DAFB1]"
+                  className="text-sm font-medium hover:underline !text-[#8DAFB1] hover:text-[#7A9A9C] transition-colors duration-200"
                 >
                   Forget Your Password?
                 </Link>
               </div>
+
               <Button
-                className="w-full text-amber-50 py-2 rounded-md hover:bg-blue-700 transition"
+                className="w-full h-11 bg-[#8DAFB1] hover:bg-[#7A9A9C] text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                 onClick={() => {
                   form.submit();
                 }}
@@ -116,39 +135,43 @@ const LoginPage = () => {
               </Button>
             </Form>
 
-            <div className="mt-4 text-center ">
-              <Divider plain={"false"}>Or Log In With</Divider>
-              <div className="flex justify-center gap-3 mb-4  mt-2">
+            <div className="mt-8">
+              <Divider className="text-gray-400">Or Log In With</Divider>
+              <div className="flex justify-center gap-4 mb-6">
                 <Button
                   onClick={handleGoogleLogin}
-                  className="flex  items-center px-4 w-full justify-center py-2 border border-gray-300 rounded-md hover:bg-gray-100"
+                  className="flex items-center justify-center gap-2 w-full h-11 px-6 border border-gray-200 rounded-lg hover:bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md"
                 >
                   <img
                     src="https://www.google.com/favicon.ico"
                     alt="Google"
-                    className="w-5 h-5 "
+                    className="w-5 h-5"
                   />
-                  Google
+                  <span className="font-medium text-gray-700">Google</span>
                 </Button>
               </div>
-              <p className="mt-5 text-sm text-gray-600 ">
-                Don’t Have an Account?{" "}
+              <p className="text-center text-gray-600">
+                Don't Have an Account?{" "}
                 <Link
-                  style={{ color: "#8DAFB1" }}
-                  className="text-blue-600 hover:underline"
                   to={ROUTES.REGISTER}
+                  className="font-medium !text-[#8DAFB1] hover:text-[#7A9A9C] hover:underline transition-colors duration-200"
                 >
-                  Register Now.
+                  Register Now
                 </Link>
               </p>
             </div>
+
             <div className="mt-8 text-xs text-gray-500 flex justify-between">
-              <p>Copyright © 2025 </p>
-              <a href="#" className="hover:underline">
+              <p>Copyright © 2024</p>
+              <a
+                href="#"
+                className="hover:text-gray-700 transition-colors duration-200"
+              >
                 Privacy Policy
               </a>
             </div>
           </div>
+
           {/* Right Section: Promotional Content */}
           <div className="w-1/2 bg-blue-600 text-white flex flex-col justify-center">
             <img
