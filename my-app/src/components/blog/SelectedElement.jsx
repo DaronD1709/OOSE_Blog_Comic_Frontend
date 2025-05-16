@@ -26,7 +26,7 @@ export const SelectedElement = ({ selected, type, color }) => {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col sm:flex-row gap-4 my-3">
+      <div className="flex flex-col sm:flex-row gap-4 ">
         {/* Label */}
         <div
           className={`flex items-center justify-center text-sm font-semibold px-4 py-2.5 rounded-lg border ${style.label} shadow-sm w-[120px] shrink-0 transition-all duration-200`}

@@ -9,7 +9,10 @@ import { ROUTES } from "../../constants/api.js";
 const Navbar = () => {
   const { user } = useContext(AuthContext);
   return (
-    <nav className="flex items-center justify-between px-8 h-20 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 mt-2 rounded-2xl shadow-xl backdrop-blur-sm border border-white/10">
+    <nav
+      className="flex items-center justify-between px-8 h-20 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 mt-2 rounded-2xl shadow-xl backdrop-blur-sm border border-white/10"
+      style={{ position: "relative", zIndex: 100 }}
+    >
       {/* Logo + Links */}
       <div className="flex items-center gap-8">
         {/* Logo */}
@@ -140,16 +143,6 @@ const Navbar = () => {
         <div className="flex items-center gap-3">
           {user && <NotiIcon />}
           <UserMenu />
-        </div>
-      </div>
-
-      {/* Dropdown Container */}
-      <div
-        className="fixed top-0 left-0 w-full h-full pointer-events-none"
-        style={{ zIndex: 9999 }}
-      >
-        <div className="absolute top-20 right-8 pointer-events-auto">
-          {/* This div will contain all dropdowns */}
         </div>
       </div>
     </nav>

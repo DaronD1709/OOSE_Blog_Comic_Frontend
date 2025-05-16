@@ -47,7 +47,7 @@ const ReviewPage = () => {
   };
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-[1130px]">
       <div>
         <AppSidebar
           menuItems={ReviewPageMenu}
