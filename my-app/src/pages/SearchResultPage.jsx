@@ -10,7 +10,7 @@ import {
   Input,
   Button,
 } from "antd";
-import { HeartFilled, SearchOutlined } from "@ant-design/icons";
+import {  SearchOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { getAllCategoryAPI } from "../services/categoryService.js";
 import { getAllTagAPI } from "../services/tagService.js";
@@ -19,10 +19,8 @@ import {
   searchBlogByKeywordAPI,
   searchBlogWithFilter,
 } from "../services/blogService.js";
-import { URL_BACKEND_IMAGES } from "../constants/images.js";
 import { getUsersByIdsAPI } from "../services/userService.js";
 import VerticalCard from "../components/Card/VerticalCard.jsx";
-import HorizontalCard from "../components/Card/HorizontalCard.jsx";
 import { validate } from "../utils/validate.js";
 
 // Trên thanh Navbar (components/navigation/Navbar.jsx) sẽ có 1 thanh search và 1 button "Tìm kiếm nâng cao"

@@ -11,7 +11,6 @@ import {
   getInsightsComicAPI,
   getRelatedCharactersAPI,
 } from '../../services/blogService'
-import { URL_BACKEND_IMAGES } from '../../constants/images'
 import { ROUTES } from '../../constants/api'
 import { validate } from '../../utils/validate.js'
 import { getThumbnail } from '../../constants/utility.js'

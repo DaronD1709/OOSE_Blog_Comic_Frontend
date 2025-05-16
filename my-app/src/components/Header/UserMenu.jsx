@@ -3,7 +3,6 @@ import { Button, message } from "antd";
 import { AuthContext } from "../../context/auth.context.jsx";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/api.js";
-import { URL_BACKEND_IMAGES } from "../../constants/images.js";
 import { getUserAvatar } from "../../constants/utility.js";
 
 const UserMenu = () => {

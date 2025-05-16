@@ -55,12 +55,13 @@ import {
 } from 'ckeditor5'
 import translations from 'ckeditor5/translations/vi.js'
 import 'ckeditor5/ckeditor5.css'
-import { Button } from 'antd'
-import { useEffect, useRef, useState } from 'react'
+import { Button, message } from 'antd'
+import { useContext, useEffect, useRef, useState } from 'react'
 
 import { saveCharacterThumbnailAPI, savePreviewThumbnailCharacterAPI } from '../services/blogService.js'
 import { customHeadingStyles } from './editorCustomStyleConstant.jsx'
 import TOCPlugin from './TOCPlugin'
+import { AuthContext } from '../context/auth.context.jsx'
 
 // Custom Base64 Upload Adapter
 class Base64UploadAdapter {
@@ -137,15 +138,26 @@ const processContentAndUploadImages = async (htmlContent, saveDataService) => {
 
 const RichTextEditor = ({ result, setResult, setPreview, isImageSaved, setIsImageSaved, saveBlog }) => {
   const editorRef = useRef(null)
+  const [loading, setLoading] = useState(false)
+
   const handleSaveButton = async () => {
-    const processedContent = await processContentAndUploadImages(result, saveCharacterThumbnailAPI)
-    setResult(processedContent)
-    if (isImageSaved === false) {
-      setIsImageSaved(true)
-    } else {
-      saveBlog()
-      setIsImageSaved(false)
+    try {
+      setLoading(true)
+      const processedContent = await processContentAndUploadImages(result, saveCharacterThumbnailAPI)
+      setResult(processedContent)
+      if (isImageSaved === false) {
+        setIsImageSaved(true)
+      } else {
+        setLoading(true)
+        await saveBlog()
+        setIsImageSaved(false)
+      }
+    } catch (err) {
+      message.error('Lỗi khi cố gắng lưu bài viết')
+    } finally {
+      setLoading(false)
     }
+
   }
   const handlePreviewButton = async () => {
     const processedContent = await processContentAndUploadImages(result, savePreviewThumbnailCharacterAPI)
@@ -415,11 +427,12 @@ const RichTextEditor = ({ result, setResult, setPreview, isImageSaved, setIsImag
           Preview
         </Button>
         {
-          isImageSaved ? <Button type={'primary'} className={''} onClick={handleSaveButton}>
-            Save blog
-          </Button> : <Button type={'primary'} className={''} onClick={handleSaveButton}>
-            Save Image To Server
-          </Button>
+          isImageSaved ? <Button type={'primary'} loading={loading} className={''} onClick={handleSaveButton}>
+              Save blog
+            </Button>
+            : <Button type={'primary'} loading={loading} className={''} onClick={handleSaveButton}>
+              Save Image To Server
+            </Button>
         }
 
 

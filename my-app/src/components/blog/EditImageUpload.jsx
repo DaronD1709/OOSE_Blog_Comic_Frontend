@@ -1,22 +1,21 @@
-import React, {  useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Image } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
-import { URL_BACKEND_IMAGES } from '../../constants/images.js'
 
-const EditImageUpload = ({ blogCharacterThumbnail, setBlogCharacterThumbnail }) => {
-  const [imgSrc, setImgSrc] = useState('')
+const EditImageUpload = ({ imgSrc, setImgSrc, setBlogCharacterThumbnail }) => {
   const inputRef = useRef(null)
   const handleImageClick = () => {
     inputRef.current?.click()
   }
+  console.log('Check')
 
   useEffect(() => {
     if (
-      blogCharacterThumbnail !== null
+      imgSrc !== null
     ) {
-      setImgSrc(`${blogCharacterThumbnail}`)
+      setImgSrc(imgSrc)
     }
-  }, [blogCharacterThumbnail])
+  }, [imgSrc])
 
   const handleFileChange = (e) => {
     const file = e.target.files[0]

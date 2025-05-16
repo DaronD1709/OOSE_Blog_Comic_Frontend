@@ -17,7 +17,6 @@ import {
   resentOTPEmailAPI,
   sentOTPAPI,
 } from "../services/otpService.js";
-import { IMAGE_URL } from "../constants/images.js";
 import { ROUTES, URL_BACKEND } from "../constants/api.js";
 import checked from "/src/assets/images/checked.png";
 

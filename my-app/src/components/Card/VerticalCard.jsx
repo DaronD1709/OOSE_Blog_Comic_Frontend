@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Card, message } from "antd";
 import { Link } from "react-router-dom";
-import { URL_BACKEND_IMAGES } from "../../constants/images.js";
 import { formatDatetimeWithTimeFirst } from "../../services/helperService.js";
 import { ROUTES } from "../../constants/api.js";
 import {
-  ShareAltOutlined,
-  EllipsisOutlined,
-  StarOutlined,
   EyeOutlined,
   MessageOutlined,
   BookOutlined,

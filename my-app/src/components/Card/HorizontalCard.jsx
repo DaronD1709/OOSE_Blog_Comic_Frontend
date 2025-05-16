@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../constants/api.js'
-import { URL_BACKEND_IMAGES } from '../../constants/images.js'
 import { formatDatetimeWithTimeFirst } from '../../services/helperService.js'
 import { Image, message } from 'antd'
 import { getCommentCountOfBlogAPI } from '../../services/commentService.js'
 import { getFavouriteCountBlogAPI } from '../../services/favoriteService.js'
 import { getThumbnail, getUserAvatar } from '../../constants/utility.js'
-import mythAvatar from '/src/assets/images/anonymous.png'
 import { validate } from '../../utils/validate.js'
 
 /**

@@ -13,7 +13,6 @@ import {
 import { CommentContext } from '../../context/CommentContext'
 import CommentBox from './CommentBox'
 import ReportButton from '../Report/ReportButton'
-import { URL_BACKEND_IMAGES } from '../../constants/images.js'
 import { addCommentToBlogAPI } from '../../services/commentService.js'
 import { getUserAvatar } from '../../constants/utility.js'
 

@@ -6,11 +6,9 @@ import {
   markAsReadNotificationAPI,
 } from "../../services/notificationService.js";
 import { AuthContext } from "../../context/auth.context.jsx";
-import { URL_BACKEND_IMAGES } from "../../constants/images.js";
 import { formatDatetimeWithTimeFirst } from "../../services/helperService.js";
 import { getUserAvatar } from "../../constants/utility.js";
-import { useNavigate, useNavigation } from "react-router-dom";
-import { ROUTES } from "../../constants/api.js";
+import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 
 const NoticeIcon = () => {

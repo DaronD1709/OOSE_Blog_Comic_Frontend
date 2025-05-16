@@ -1,5 +1,4 @@
 import { Image } from "antd";
-import { URL_BACKEND_IMAGES } from "../../constants/images.js";
 import { CharacterInfo } from "./CharacterInfo.jsx";
 
 const character = {

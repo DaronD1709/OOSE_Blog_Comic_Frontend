@@ -1,34 +1,34 @@
-import { useContext, useEffect, useState } from "react";
-import RichTextEditor from "../editor/RichTextEditor.jsx";
-import { customImageAlignStyles } from "../editor/editorCustomStyleConstant.jsx";
-import { EditCharacterInfo } from "../components/blog/EditCharacterInfo.jsx";
-import { Divider, Input, message } from "antd";
-import { AuthContext } from "../context/auth.context.jsx";
+import { useContext, useEffect, useState } from 'react'
+import RichTextEditor from '../editor/RichTextEditor.jsx'
+import { customImageAlignStyles } from '../editor/editorCustomStyleConstant.jsx'
+import { EditCharacterInfo } from '../components/blog/EditCharacterInfo.jsx'
+import { Divider, Input, message } from 'antd'
+import { AuthContext } from '../context/auth.context.jsx'
 import {
   getBlogCharacterAPI,
   getBlogComicAPI,
   updateBlogCharacterAPI,
-} from "../services/blogService.js";
+} from '../services/blogService.js'
 
-import { SearchBlogComic } from "../components/blog/SearchBlogComic.jsx";
-import { useParams } from "react-router-dom";
-import { URL_BACKEND_IMAGES } from "../constants/images.js";
-import TextArea from "antd/es/input/TextArea.js";
+import { SearchBlogComic } from '../components/blog/SearchBlogComic.jsx'
+import { useParams } from 'react-router-dom'
+import TextArea from 'antd/es/input/TextArea.js'
+import { urlToFile } from '../constants/utility.js'
 
 export const EditBlogCharacterPage = () => {
-  const { user } = useContext(AuthContext);
-  const { id } = useParams();
+  const { user } = useContext(AuthContext)
+  const { id } = useParams()
   // HTML content của bài viết
-  const [result, setResult] = useState(null);
-  const [preview, setPreview] = useState("");
-  const [isImageSaved, setIsImageSaved] = useState(false);
-  const [blogComic, setBlogComic] = useState(null);
-  const [blogCharacter, setBlogCharacter] = useState(null);
-  const [character, setCharacter] = useState(null);
-  const [blogTitle, setBlogTitle] = useState("");
-  const [blogCharacterThumbnail, setBlogCharacterThumbnail] = useState(null);
-  const [introduction, setIntroduction] = useState("");
-  const { uploadCharacterAvatar } = useContext(AuthContext);
+  const [result, setResult] = useState(null)
+  const [preview, setPreview] = useState('')
+  const [isImageSaved, setIsImageSaved] = useState(false)
+  const [blogComic, setBlogComic] = useState(null)
+  const [blogCharacter, setBlogCharacter] = useState(null)
+  const [character, setCharacter] = useState(null)
+  const [imgSrc, setImgSrc] = useState('')
+  const [blogTitle, setBlogTitle] = useState('')
+  const [blogCharacterThumbnail, setBlogCharacterThumbnail] = useState(null)
+  const [introduction, setIntroduction] = useState('')
   const updateBlog = async () => {
     const blogCharacterReq = {
       title: blogTitle,
@@ -37,53 +37,56 @@ export const EditBlogCharacterPage = () => {
       character: character,
       comicId: blogComic === null ? null : blogComic.id,
       introduction: introduction,
-    };
+
+    }
     try {
       const response = await updateBlogCharacterAPI(
         blogCharacterReq,
         blogCharacterThumbnail,
         id
-      );
-      message.success("Sửa bài viết thành công");
+      )
+      message.success('Sửa bài viết thành công')
     } catch (error) {
-      message.error(error.data);
+      message.error(error.data)
+    } finally {
     }
-  };
+  }
 
   useEffect(() => {
-    if (!id) return;
+    if (!id) return
 
     const getBlogCharacter = async () => {
       try {
-        const res = await getBlogCharacterAPI(id);
-        setBlogCharacter(res);
-        setCharacter(res.character);
-        setBlogTitle(res.title);
-        setResult(res.content);
-        setBlogCharacterThumbnail(res.thumbnail);
-        setIntroduction(res.introduction);
+        const res = await getBlogCharacterAPI(id)
+        setBlogCharacter(res)
+        setCharacter(res.character)
+        setBlogTitle(res.title)
+        setResult(res.content)
+        setBlogCharacterThumbnail(await urlToFile(res.thumbnail))
+        setImgSrc(res.thumbnail)
+        setIntroduction(res.introduction)
       } catch (error) {
-        message.error("Lỗi khi lấy dữ liệu bài viết về nhân vật");
+        message.error('Lỗi khi lấy dữ liệu bài viết về nhân vật')
       }
-    };
+    }
 
-    getBlogCharacter();
-  }, [id]);
+    getBlogCharacter()
+  }, [id])
 
   useEffect(() => {
-    if (!blogCharacter?.comicId) return;
+    if (!blogCharacter?.comicId) return
 
     const getBlogComic = async () => {
       try {
-        const res = await getBlogComicAPI(blogCharacter.comicId);
-        setBlogComic(res);
+        const res = await getBlogComicAPI(blogCharacter.comicId)
+        setBlogComic(res)
       } catch (error) {
-        message.error("Lỗi khi lấy dữ liệu truyện của nhân vật");
+        message.error('Lỗi khi lấy dữ liệu truyện của nhân vật')
       }
-    };
+    }
 
-    getBlogComic();
-  }, [blogCharacter]);
+    getBlogComic()
+  }, [blogCharacter])
 
   return (
     <>
@@ -104,16 +107,16 @@ export const EditBlogCharacterPage = () => {
               {/* Title and Comic Info Section */}
               <div className="flex items-center mb-6">
                 <Input
-                  style={{ width: "12rem" }}
+                  style={{ width: '12rem' }}
                   value={blogTitle}
                   placeholder="Nhập tiêu đề bài viết"
                   className="!flex-shrink-0 rounded-lg shadow-sm border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 text-base"
                   onChange={(e) => setBlogTitle(e.target.value)}
                 />
                 <div className="ml-6 font-medium text-gray-700">
-                  Thuộc truyện:{" "}
+                  Thuộc truyện:{' '}
                   <span className="font-semibold text-blue-600">
-                    {blogComic === null ? "Chưa chọn truyện" : blogComic.title}
+                    {blogComic === null ? 'Chưa chọn truyện' : blogComic.title}
                   </span>
                 </div>
               </div>
@@ -130,9 +133,9 @@ export const EditBlogCharacterPage = () => {
                   placeholder="Viết lời giới thiệu về bài viết"
                   style={{
                     height: 100,
-                    resize: "none",
-                    borderRadius: "0.5rem",
-                    padding: "0.75rem",
+                    resize: 'none',
+                    borderRadius: '0.5rem',
+                    padding: '0.75rem',
                   }}
                   value={introduction}
                   className="border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
@@ -157,7 +160,7 @@ export const EditBlogCharacterPage = () => {
               <div className="text-xl font-semibold text-gray-800 mb-4">
                 Bản xem trước
               </div>
-              <Divider className="!mt-0 !mb-4" />
+              <Divider className="!mt-0 !mb-4"/>
 
               <div className="border rounded-lg p-6 bg-gray-50">
                 <div
@@ -174,13 +177,12 @@ export const EditBlogCharacterPage = () => {
               character={character}
               setCharacter={setCharacter}
               setBlogCharacterThumbnail={setBlogCharacterThumbnail}
-              blogCharacterThumbnail={
-                blogCharacter !== null ? blogCharacterThumbnail : null
-              }
+              imgSrc={imgSrc}
+              setImgSrc={setImgSrc}
             />
           </div>
         </div>
       </div>
     </>
-  );
-};
+  )
+}

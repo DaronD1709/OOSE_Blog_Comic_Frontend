@@ -1,7 +1,6 @@
 import { Image, Input, message } from "antd";
 import { useEffect, useState } from "react";
 import { getAllBlogCharactersAPI } from "../../services/blogService.js";
-import { URL_BACKEND_IMAGES } from "../../constants/images.js";
 import { SearchOutlined } from "@ant-design/icons";
 
 export const SearchBlogCharacter = ({ blogCharacter, setBlogCharacter }) => {

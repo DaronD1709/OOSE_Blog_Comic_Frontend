@@ -14,7 +14,6 @@ import { Content } from "antd/es/layout/layout.js";
 import Sider from "antd/es/layout/Sider.js";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { RelatedBlog } from "../components/character-related-blogs/RelatedBlog.jsx";
-import { URL_BACKEND_IMAGES } from "../constants/images.js";
 import { BloggerInfo } from "../components/blog/BloggerInfo.jsx";
 import { formatDatetimeWithTimeFirst } from "../services/helperService.js";
 import PostActions from "../components/PostActions.jsx";

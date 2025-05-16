@@ -1,6 +1,5 @@
-import { Image, Input, message } from "antd";
+import {  Input, message } from "antd";
 import { useEffect, useState } from "react";
-import { URL_BACKEND_IMAGES } from "../../constants/images.js";
 import { SearchOutlined } from "@ant-design/icons";
 import { getAllCategoryAPI } from "../../services/categoryService.js";
 
