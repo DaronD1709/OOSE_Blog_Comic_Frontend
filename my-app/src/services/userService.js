@@ -81,14 +81,12 @@ export const updateUser = async (id, userData) => {
 }
 
 export const updateUserAvatarService = async (id, avatarFile) => {
-  console.log('Gọi updateUserAvatarService', avatarFile, avatarFile instanceof File)
   try {
     const formData = new FormData()
     formData.append('userId', id)
     formData.append('avatar', avatarFile)
     // Không set Content-Type, để axios tự động
     const response = await axios.patch(URL_BACKEND + `/api/v1/users/avatar`, formData)
-    console.log(avatarFile, avatarFile instanceof File)
     return response
   } catch (error) {
     throw error

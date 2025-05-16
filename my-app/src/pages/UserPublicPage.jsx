@@ -5,7 +5,6 @@ import { fetchUserById } from '../services/userService'
 import { AvatarDisplay } from '../components/User/AvatarUpload'
 import { BloggerInfo } from '../components/blog/BloggerInfo'
 import { getUserAvatar } from '../constants/utility.js'
-import { validate } from '../utils/validate.js'
 import mythAvatar from '/src/assets/images/anonymous.png'
 
 const UserPublicPage = () => {
@@ -18,8 +17,7 @@ const UserPublicPage = () => {
       setLoading(true)
       try {
         const response = await fetchUserById(id)
-        const user = response.data || response
-        setUserData(user)
+        setUserData(response)
       } catch (error) {
         setUserData(null)
       } finally {
