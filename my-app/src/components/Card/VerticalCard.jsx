@@ -85,7 +85,7 @@ const VerticalCard = (props) => {
             <div
               style={{
                 position: "absolute",
-                top: 10,
+                top: 18,
                 left: 10,
                 display: "flex",
                 flexWrap: "wrap",
