@@ -50,7 +50,7 @@ export const NewBlogCharacterPage = () => {
       authorId: user.id,
       content: result,
       character: character,
-      comicId: validate(blogComic) ? null : blogComic.id,
+      comicId: validate(blogComic) ? null : blogComic?.id,
       introduction: introduction,
     }
     try {

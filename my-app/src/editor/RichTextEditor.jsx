@@ -149,7 +149,7 @@ const RichTextEditor = ({ result, setResult, setPreview, isImageSaved, setIsImag
         setIsImageSaved(true)
       } else {
         setLoading(true)
-        await saveBlog()
+         saveBlog()
         setIsImageSaved(false)
       }
     } catch (err) {
