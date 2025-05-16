@@ -92,7 +92,7 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-        <Link to={ROUTES.SEARCH} className="group ml-7 pt-1">
+        <Link to={ROUTES.SEARCH} className="group ml-4 pt-1">
           <button className="relative text-white bg-white/10 p-2 rounded-full hover:bg-white/20 focus:outline-none transition-all duration-300 hover:scale-110">
             <svg
               className="w-6 h-6 transition-all duration-300 transform group-hover:rotate-12"
