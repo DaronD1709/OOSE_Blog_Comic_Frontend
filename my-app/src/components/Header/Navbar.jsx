@@ -56,7 +56,7 @@ const Navbar = () => {
       </div>
 
       {/* Search box */}
-      <div className="flex-1 flex justify-center">
+      <div className="flex-1 ml-4 flex justify-center">
         <div className="relative w-[300px] max-w-xl">
           <div className="relative flex items-center group">
             <input
