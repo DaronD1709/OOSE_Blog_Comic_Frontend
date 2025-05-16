@@ -1,19 +1,19 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { Button, message } from "antd";
-import { AuthContext } from "../../context/auth.context.jsx";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../../constants/api.js";
-import { URL_BACKEND_IMAGES } from "../../constants/images.js";
-import { getUserAvatar } from "../../constants/utility.js";
+import React, { useState, useRef, useEffect, useContext } from 'react'
+import { Button, message } from 'antd'
+import { AuthContext } from '../../context/auth.context.jsx'
+import { useNavigate } from 'react-router-dom'
+import { ROUTES } from '../../constants/api.js'
+import { URL_BACKEND_IMAGES } from '../../constants/images.js'
+import { getUserAvatar } from '../../constants/utility.js'
 
 const UserMenu = () => {
-  const { user, setUser } = useContext(AuthContext);
-  const [open, setOpen] = useState(false);
-  const ref = useRef();
-  const navigate = useNavigate();
+  const { user, setUser } = useContext(AuthContext)
+  const [open, setOpen] = useState(false)
+  const ref = useRef()
+  const navigate = useNavigate()
   const menuOptions = [
     {
-      label: "My Profile",
+      label: 'My Profile',
       icon: (
         <svg
           className="w-5 h-5 mr-2 text-blue-500"
@@ -31,14 +31,14 @@ const UserMenu = () => {
       ),
       onClick: () => {
         if (user && user.id) {
-          window.location.href = ROUTES.USER_BY_ID.replace(":id", user.id);
+          navigate(ROUTES.getUserProfile(user.id))
         } else {
-          window.location.href = ROUTES.LOGIN;
+          navigate(ROUTES.LOGIN)
         }
       },
     },
     {
-      label: "Create Post",
+      label: 'Create Post',
       icon: (
         <svg
           className="w-5 h-5 mr-2 text-green-500"
@@ -54,10 +54,10 @@ const UserMenu = () => {
           />
         </svg>
       ),
-      onClick: () => (window.location.href = ROUTES.NEW_COMIC),
+      onClick: () => (navigate(ROUTES.NEW_COMIC)),
     },
     {
-      label: "Setting",
+      label: 'Setting',
       icon: (
         <svg
           className="w-5 h-5 mr-2 text-purple-500"
@@ -78,10 +78,10 @@ const UserMenu = () => {
           />
         </svg>
       ),
-      onClick: () => alert("Go to setting!"),
+      onClick: () => alert('Go to setting!'),
     },
     {
-      label: "Logout",
+      label: 'Logout',
       icon: (
         <svg
           className="w-5 h-5 mr-2 text-red-500"
@@ -99,36 +99,36 @@ const UserMenu = () => {
       ),
       onClick: () => handleLogout(),
     },
-  ];
+  ]
 
   const goToLogin = () => {
     if (user && user.id) {
-      window.location.href = ROUTES.USER_BY_ID.replace(":id", user.id);
+      navigate(ROUTES.getUserProfile(user.id))
     } else {
-      window.location.href = ROUTES.LOGIN;
+      navigate(ROUTES.LOGIN)
     }
-  };
+  }
 
   const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    setUser(null);
-    message.success("Đăng xuất thành công");
-    window.location.reload();
-  };
+    localStorage.removeItem('access_token')
+    setUser(null)
+    message.success('Đăng xuất thành công')
+    window.location.reload()
+  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) setOpen(false);
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+      if (ref.current && !ref.current.contains(event.target)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   return (
-    <div className="relative" ref={ref}>
+    <div className="relative h-12 flex items-center" ref={ref}>
       {user !== null ? (
         <>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center">
             <div className="relative group">
               <img
                 src={getUserAvatar(user.avatar)}
@@ -136,20 +136,23 @@ const UserMenu = () => {
                 className="w-12 h-12 rounded-full border-2 border-blue-400 object-cover cursor-pointer hover:border-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-blue-200"
                 onClick={() => setOpen((o) => !o)}
               />
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+              <div
+                className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
             </div>
           </div>
           {open && (
-            <div className="absolute right-0 mt-3 w-72 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-hidden transform transition-all duration-300 ease-in-out animate-fadeIn">
+            <div
+              className="fixed top-20 right-8 mt-2 w-72 bg-white border border-gray-200 rounded-xl shadow-xl z-[9999] overflow-hidden transform transition-all duration-300 ease-in-out animate-fadeIn">
               <div className="px-6 py-4 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700">
                 <div className="flex items-center gap-4">
                   <div className="relative">
                     <img
-                      src={getUserAvatar(user.avatar)}
+                      src={getUserAvatar(user?.avatar)}
                       alt="Avatar"
                       className="w-16 h-16 rounded-full object-cover ring-4 ring-white/30 shadow-lg transform hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
+                    <div
+                      className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
                   </div>
                   <div className="flex flex-col">
                     <p className="text-xl text-white font-bold tracking-tight">
@@ -167,11 +170,12 @@ const UserMenu = () => {
                     key={option.label}
                     className="flex items-center px-6 py-3 hover:bg-gray-50 cursor-pointer text-gray-700 text-sm transition-all duration-200 group border-l-4 border-transparent hover:border-blue-500"
                     onClick={() => {
-                      setOpen(false);
-                      option.onClick();
+                      setOpen(false)
+                      option.onClick()
                     }}
                   >
-                    <div className="flex items-center w-full group-hover:translate-x-2 transition-transform duration-200">
+                    <div
+                      className="flex items-center w-full group-hover:translate-x-2 transition-transform duration-200">
                       {option.icon}
                       <span className="font-medium">{option.label}</span>
                     </div>
@@ -182,8 +186,8 @@ const UserMenu = () => {
                 <button
                   className="w-full py-2.5 px-4 bg-white hover:bg-red-50 text-gray-700 hover:text-red-600 rounded-lg text-sm font-medium transition-all duration-200 border border-gray-200 hover:border-red-200 flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
                   onClick={() => {
-                    setOpen(false);
-                    handleLogout();
+                    setOpen(false)
+                    handleLogout()
                   }}
                 >
                   <svg
@@ -208,7 +212,7 @@ const UserMenu = () => {
       ) : (
         <Button
           onClick={goToLogin}
-          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium px-6 py-2.5 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg flex items-center gap-2 border-0"
+          className="h-12 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg flex items-center gap-2 border-0"
         >
           <svg
             className="w-5 h-5"
@@ -227,7 +231,7 @@ const UserMenu = () => {
         </Button>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default UserMenu;
+export default UserMenu

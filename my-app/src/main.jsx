@@ -5,7 +5,7 @@ import 'antd/dist/reset.css' // Đối với AntD v5 trở lên
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
-import { AuthWrapper } from './context/auth.context.jsx'
+import { AuthContext, AuthWrapper } from './context/auth.context.jsx'
 import Callback from './callback/CallBack.jsx'
 import { EditBlogCharacterPage } from './pages/EditBlogCharacterPage.jsx'
 import { ViewBlogCharacterPage } from './pages/ViewBlogCharacterPage.jsx'
@@ -35,128 +35,157 @@ import AdminManageUsers from './components/manage/AdminManageUsers.jsx'
 import AdminManageTags from './components/manage/AdminManageTags.jsx'
 import AdminDashboard from './components/AdminDashboard.jsx'
 import AdminLayout from './components/Layout/AdminLayout.jsx'
+import RequireRole from './components/RequireRole.jsx'
+import { Spin } from 'antd'
+import { useContext } from 'react'
 
-const router = createBrowserRouter([
-  {
-    path: ROUTES.HOME,
-    element: <App/>,
-    children: [
-      {
-        index: true,
-        element: <Homepage/>,
-      },
-      {
-        path: ROUTES.NEW_CHARACTER,
-        element: <NewBlogCharacterPage/>,
-      },
-      {
-        path: ROUTES.NEW_COMIC,
-        element: <NewBlogComicPage/>
-      },
-      {
-        path: ROUTES.VIEW_CHARACTER,
-        element: <ViewBlogCharacterPage/>,
-      },
-      {
-        path: ROUTES.VIEW_COMIC,
-        element: <ViewBlogComicPage/>
-      },
-      {
-        path: ROUTES.EDIT_COMIC,
-        element: <EditBlogComicPage/>,
-      },
-      {
-        path: ROUTES.EDIT_CHARACTER,
-        element: <EditBlogCharacterPage/>,
-      },
-      {
-        path: ROUTES.REVIEW_COMIC,
-        element: <ReviewPage/>,
-      },
-      {
-        path: ROUTES.REVIEW_INSIGHT,
-        element: <InsightPage/>,
-      },
-      {
-        path: ROUTES.REVIEW_CHARACTER,
-        element: <CharacterPage/>,
-      },
-      {
-        path: ROUTES.SEARCH,
-        element: <SearchResultPage/>,
-      },
-      {
-        path: ROUTES.DASHBOARD,
-        element: <DashboardPage/>,
-      },
-      {
-        path: ROUTES.FAVOURITE,
-        element: <FavouritePage/>,
-      },
-      {
-        path: ROUTES.USERS,
-        element: <UserPage/>,
-      },
-    ],
-  },
-  {
-    path: ROUTES.LOGIN,
-    element: <LoginPage/>,
-  },
-  {
-    path: ROUTES.REGISTER,
-    element: <RegisterPage/>,
-  },
-  {
-    path: ROUTES.CALLBACK,
-    element: <Callback/>,
-  },
-  {
-    path: ROUTES.FORGOT_PASSWORD,
-    element: <ForgotPasswordPage/>,
-  },
-  {
-    path: ROUTES.COMMENT_ADMIN,
-    element: <CommentAdminPage/>,
-  },
-  {
-    path: '/admin',
-    element: <AdminLayout />,
-    children: [
-      {
-        index: true,
-        element: <AdminDashboard />,
-      },
-      {
-        path: 'users',
-        element: <AdminManageUsers />,
-      },
-      {
-        path: 'reports',
-        element: <AdminManageReports />,
-      },
-      {
-        path: 'blogs',
-        element: <AdminManageBlogs />,
-      },
-      {
-        path: 'categories',
-        element: <AdminManageCategories />,
-      },
-      {
-        path: 'tags',
-        element: <AdminManageTags />,
-      },
-    ],
+const RootApp = () => {
+  const { loading } = useContext(AuthContext)
+
+  if (loading) {
+    return <div className="flex justify-center items-center h-screen"><Spin size="large"/></div>
   }
+  const router = createBrowserRouter([
+    {
+      path: ROUTES.HOME,
+      element: <App/>,
+      children: [
+        {
+          index: true,
+          element: <Homepage/>,
+        },
 
-]);
+        {
+          path: ROUTES.VIEW_CHARACTER,
+          element: <ViewBlogCharacterPage/>,
+        },
+        {
+          path: ROUTES.VIEW_COMIC,
+          element: <ViewBlogComicPage/>
+        },
+
+        {
+          path: ROUTES.REVIEW_COMIC,
+          element: <ReviewPage/>,
+        },
+        {
+          path: ROUTES.REVIEW_INSIGHT,
+          element: <InsightPage/>,
+        },
+        {
+          path: ROUTES.REVIEW_CHARACTER,
+          element: <CharacterPage/>,
+        },
+        {
+          path: ROUTES.SEARCH,
+          element: <SearchResultPage/>,
+        },
+        {
+          path: ROUTES.DASHBOARD,
+          element: <DashboardPage/>,
+        },
+        {
+          path: ROUTES.FAVOURITE,
+          element: <FavouritePage/>,
+        },
+        {
+          path: ROUTES.USERS,
+          element: <UserPage/>,
+        },
+
+      ],
+    },
+    {
+      path: ROUTES.LOGIN,
+      element: <LoginPage/>,
+    },
+    {
+      path: ROUTES.REGISTER,
+      element: <RegisterPage/>,
+    },
+    {
+      path: ROUTES.CALLBACK,
+      element: <Callback/>,
+    },
+    {
+      path: ROUTES.FORGOT_PASSWORD,
+      element: <ForgotPasswordPage/>,
+    },
+    {
+      path: ROUTES.COMMENT_ADMIN,
+      element: <CommentAdminPage/>,
+    },
+    {
+      path: '/admin',
+      element:
+        <RequireRole allowedRoles={['ADMIN']}>
+          <AdminLayout/>
+        </RequireRole>,
+      children: [
+        {
+          index: true,
+          element: <AdminDashboard/>,
+        },
+        {
+          path: 'users',
+          element: <AdminManageUsers/>,
+        },
+        {
+          path: 'reports',
+          element: <AdminManageReports/>,
+        },
+        {
+          path: 'blogs',
+          element: <AdminManageBlogs/>,
+        },
+        {
+          path: 'categories',
+          element: <AdminManageCategories/>,
+        },
+        {
+          path: 'tags',
+          element: <AdminManageTags/>,
+        },
+      ],
+    },
+    {
+      path: '/blogger',
+      element: <RequireRole allowedRoles={['BLOGGER', 'ADMIN']}/>, // chỉ kiểm tra quyền
+      children: [
+        {
+          element: <App/>, // dùng App làm layout (Navbar/Footer/Outlet)
+          children: [
+            {
+              index: true,
+              element: <NewBlogCharacterPage/>,
+            },
+            {
+              path: 'new-comic',
+              element: <NewBlogComicPage/>
+            },
+            {
+              path: 'edit-comic/:id',
+              element: <EditBlogComicPage/>,
+            },
+            {
+              path: 'edit-character/:id',
+              element: <EditBlogCharacterPage/>,
+            },
+          ]
+        }
+      ]
+    }
+
+  ])
+  return <RouterProvider router={router}/>
+
+}
 
 createRoot(document.getElementById('root')).render(
   <AuthWrapper>
     <FavouriteProvider>
       <ReportProvider>
-        <RouterProvider router={router}/>
+        <RootApp/>
       </ReportProvider>
     </FavouriteProvider>
   </AuthWrapper>

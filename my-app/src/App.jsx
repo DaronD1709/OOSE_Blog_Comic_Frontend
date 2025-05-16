@@ -6,25 +6,6 @@ import "./App.css";
 import { AuthContext } from "./context/auth.context.jsx";
 import { fetchAccountAPI } from "./services/userService.js";
 function App() {
-  const { user, setUser, isLoading, setIsLoading } = useContext(AuthContext);
-
-  useEffect(() => {
-    if (localStorage.getItem("access_token")) {
-      setIsLoading(true);
-      const userPromise = fetchAccountAPI();
-      userPromise
-        .then((user) => {
-          setUser(user);
-        })
-        .catch((error) => {
-          setUser(null);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-  }, []);
-
   return (
     <>
       <div className="app-container min-h-screen flex flex-col bg-gray-50 mt-2">
