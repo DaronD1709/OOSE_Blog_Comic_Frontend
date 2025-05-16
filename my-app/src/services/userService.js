@@ -148,3 +148,13 @@ export const deleteUserById = async (userId) => {
     throw error
   }
 }
+
+export const updateUserStatusAPI = async ({ userId, status }) => {
+  try {
+    // Sử dụng endpoint chuẩn để cập nhật thông tin người dùng
+    const response = await axios.put(URL_BACKEND + `/api/v1/users/${userId}/status?status=${status}`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}

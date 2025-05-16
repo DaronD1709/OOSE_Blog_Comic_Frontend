@@ -6,6 +6,7 @@ import DisplayAuthorInfo from '../components/DisplayAuthorInfor'
 import { getBlogCharacterPaginationAPI, getBlogPaginationAPI } from '../services/blogService.js'
 import { PAGINATION } from '../constants/api.js'
 import { message } from 'antd'
+import { validate } from '../utils/validate.js'
 
 const topReviews = [
   {
@@ -71,7 +72,7 @@ const Homepage = () => {
         <div className={'h-[900px] overflow-y-scroll  w-5/7 text-black  flex flex-col gap-3 items-center' +
           ' overflow-x-hidden'}>
           {
-            blogs.length > 0 &&
+            validate(blogs) &&
             <div className="  ">
               {blogs.map((item) => (
                 <HorizontalCard key={item.id} {...item} />
@@ -97,7 +98,7 @@ const Homepage = () => {
       </div>
       <div className="flex justify-center mx-10 pb-20">
         {
-          meta !== null &&
+          validate(meta) &&
           <AppPagination
             current={currentPage}
             total={meta.total}

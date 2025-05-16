@@ -28,7 +28,7 @@ import { AuthContext } from '../context/auth.context'
 import { Comment } from '../components/Comment/Comment'
 import { BloggerInfo } from '../components/blog/BloggerInfo'
 import { SelectedElement } from '../components/blog/SelectedElement'
-import { RelatedBlogCharacter } from '../components/character-related-blogs/RelatedBlogCharacter'
+import { RelatedBlog } from '../components/character-related-blogs/RelatedBlog.jsx'
 import PostActions from '../components/PostActions'
 
 import { formatDatetimeWithTimeFirst } from '../services/helperService'
@@ -36,6 +36,8 @@ import { ROUTES } from '../constants/api'
 import { URL_BACKEND_IMAGES } from '../constants/images'
 import { customImageAlignStyles } from '../editor/editorCustomStyleConstant'
 import { getUserAvatar } from '../constants/utility.js'
+import { validate } from '../utils/validate.js'
+import mythAvatar from '../assets/images/anonymous.png'
 
 export const ViewBlogComicPage = () => {
   const { id } = useParams()
@@ -194,13 +196,13 @@ export const ViewBlogComicPage = () => {
 
           <div className="text-center px-3 py-4 font-bold">
             {collapsed ? (
-              <RelatedBlogCharacter blogComic={blog} blogInsight={blog} blogType={blog.type} loadType="Icon" />
+              <RelatedBlog blogComic={blog} blogInsight={blog} blogType={blog.type} loadType="Icon" />
             ) : (
               <>
                 <div className="text-left text-2xl font-bold underline mb-6 text-[#520044]">
                   Những bài viết liên quan:
                 </div>
-                <RelatedBlogCharacter blogType={blog.type} blogComic={blog} blogInsight={blog} loadType="Full" />
+                <RelatedBlog blogType={blog.type} blogComic={blog} blogInsight={blog} loadType="Full" />
               </>
             )}
           </div>
@@ -239,8 +241,8 @@ export const ViewBlogComicPage = () => {
 
               <BloggerInfo
                 hasFollow={hasFollow}
-                name={blog.author.displayName}
-                avatarUrl={getUserAvatar(blog.author.avatar)}
+                name={validate(blog.author) ? blog.author.displayName : 'Tài khoản không tồn tại'}
+                avatarUrl={validate(blog.author) ? getUserAvatar(blog.author.avatar) : mythAvatar}
                 date={formatDatetimeWithTimeFirst(blog.createdAt)}
                 onFollow={handleFollow}
                 setHasFollow={setHasFollow}

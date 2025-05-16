@@ -5,6 +5,7 @@ import AppPagination from '../components/AppPagination'
 import { message } from 'antd'
 import { getBlogComicPaginationAPI } from '../services/blogService.js'
 import { PAGINATION } from '../constants/api.js'
+import { validate } from '../utils/validate.js'
 
 
 
@@ -62,7 +63,7 @@ const ReviewPage = () => {
       </div>
       <div className="flex flex-col flex-1 pt-10 px-3">
         <div className="flex flex-wrap gap-5 h-[930px] justify-start overflow-y-scroll">
-          {blogs.length > 0 ? (
+          {validate(blogs) ? (
             blogs.map((comic) => (
               <VerticalCard key={comic.id} {...comic} />
             ))
@@ -72,7 +73,7 @@ const ReviewPage = () => {
         </div>
         <div className="flex justify-center mt-5 mb-13 pb-5">
           {
-            meta !== null &&
+            validate(meta) &&
             <AppPagination
               current={currentPage}
               total={meta.total}
@@ -80,7 +81,6 @@ const ReviewPage = () => {
               onChange={setCurrentPage}
             />
           }
-
         </div>
       </div>
     </div>

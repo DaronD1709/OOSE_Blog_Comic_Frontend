@@ -1,17 +1,18 @@
 // ✅ Đã style lại theo chuẩn Tailwind, responsive, dễ đọc
-// 📁 File: components/character-related-blogs/RelatedBlogCharacter.jsx
+// 📁 File: components/character-related-blogs/RelatedBlog.jsx
 
 import { Avatar, Image, message } from 'antd'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import {
   getBlogCharacterAPI,
-  getBlogComicAPI,
+  getBlogComicAPI, getInsightsCharacterAPI,
   getInsightsComicAPI,
   getRelatedCharactersAPI,
 } from '../../services/blogService'
 import { URL_BACKEND_IMAGES } from '../../constants/images'
 import { ROUTES } from '../../constants/api'
+import { validate } from '../../utils/validate.js'
 
 const SectionTitle = ({ children }) => (
   <div className="text-[#520044] text-xl font-bold underline underline-offset-4 mb-3">
@@ -35,16 +36,21 @@ const BlogItem = ({ blog, type }) => (
   </div>
 )
 
-const BlogIcon = ({ blog }) => (
-  <div className="my-3">
-    <Avatar
-      src={`${URL_BACKEND_IMAGES}/${blog.thumbnail}`}
-      className="!w-20 !h-20 border rounded-full object-cover"
-    />
-  </div>
-)
+const BlogIcon = ({ blog }) => {
+  if (validate(blog) === false) {
+    return
+  }
+  return (
+    <div className="my-3">
+      <Avatar
+        src={`${URL_BACKEND_IMAGES}/${blog.thumbnail}`}
+        className="!w-20 !h-20 border rounded-full object-cover"
+      />
+    </div>
+  )
+}
 
-export const RelatedBlogCharacter = ({
+export const RelatedBlog = ({
   hasBlog,
   blogComic,
   blogCharacterId,
@@ -52,18 +58,18 @@ export const RelatedBlogCharacter = ({
   blogInsight,
   loadType,
 }) => {
-  const [relatedCharacters, setRelatedCharacters] = useState(null)
-  const [relatedInsightBlogs, setRelatedInsightBlogs] = useState(null)
-  const [relatedBlogComic, setRelatedBlogComic] = useState(null)
+  const [relatedCharacters, setRelatedCharacters] = useState([])
+  const [relatedInsightBlogs, setRelatedInsightBlogs] = useState([])
+  const [relatedBlogComic, setRelatedBlogComic] = useState([])
 
   useEffect(() => {
     if (blogType === 'CHARACTER') {
       if (blogComic) getCharacters(blogComic.id)
-      if (blogCharacterId) getInsight(blogCharacterId)
+      if (blogCharacterId) getInsightCharacter(blogCharacterId)
     } else if (blogType === 'COMIC') {
       if (blogComic) {
         getCharacters(blogComic.id)
-        getInsight(blogComic.id)
+        getInsightComic(blogComic.id)
       }
     } else if (blogType === 'INSIGHT') {
       if (blogInsight?.comicId) getComic(blogInsight.comicId)
@@ -80,9 +86,18 @@ export const RelatedBlogCharacter = ({
     }
   }
 
-  const getInsight = async (id) => {
+  const getInsightComic = async (id) => {
     try {
       const res = await getInsightsComicAPI(id)
+      setRelatedInsightBlogs(res)
+    } catch {
+      message.error('Không thể lấy danh sách bài viết cảm hứng')
+    }
+  }
+
+  const getInsightCharacter = async (id) => {
+    try {
+      const res = await getInsightsCharacterAPI(id)
       setRelatedInsightBlogs(res)
     } catch {
       message.error('Không thể lấy danh sách bài viết cảm hứng')
@@ -110,10 +125,12 @@ export const RelatedBlogCharacter = ({
   if (loadType === 'Icon') {
     return (
       <div className="h-[700px] mt-20 grid grid-cols-1 place-items-center gap-3">
-        {hasBlog && blogComic && <BlogIcon blog={blogComic} />}
-        {relatedCharacters?.map((char) => <BlogIcon key={char.id} blog={char} />)}
-        {relatedInsightBlogs?.map((blog) => <BlogIcon key={blog.id} blog={blog} />)}
-        {relatedBlogComic && <BlogIcon blog={relatedBlogComic} />}
+        {hasBlog && blogComic && <BlogIcon blog={blogComic}/>}
+        {Array.isArray(relatedCharacters) ? relatedCharacters?.map((char) => <BlogIcon key={char.id} blog={char}/>)
+          : relatedCharacters && <BlogIcon blog={relatedCharacters}/>
+        }
+        {validate(relatedInsightBlogs) && relatedInsightBlogs.map((blog) => <BlogIcon key={blog.id} blog={blog}/>)}
+        {relatedBlogComic && <BlogIcon blog={relatedBlogComic}/>}
       </div>
     )
   }
@@ -122,22 +139,22 @@ export const RelatedBlogCharacter = ({
     <div className="h-[700px] overflow-y-auto px-2 space-y-6">
       {blogType === 'CHARACTER' && (
         <>
-          {hasBlog && blogComic && <BlogItem blog={blogComic} type="COMIC" />}
+          {hasBlog && blogComic && <BlogItem blog={blogComic} type="COMIC"/>}
 
           {relatedCharacters?.length > 0 && (
             <>
               <SectionTitle>Nhân vật khác</SectionTitle>
               {relatedCharacters.map((char) => (
-                <BlogItem key={char.id} blog={char} type="CHARACTER" />
+                <BlogItem key={char.id} blog={char} type="CHARACTER"/>
               ))}
             </>
           )}
 
-          {relatedInsightBlogs?.length > 0 && (
+          {validate(relatedInsightBlogs) > 0 && (
             <>
               <SectionTitle>Bài viết bình luận về nhân vật</SectionTitle>
               {relatedInsightBlogs.map((blog) => (
-                <BlogItem key={blog.id} blog={blog} type="COMIC" />
+                <BlogItem key={blog.id} blog={blog} type="COMIC"/>
               ))}
             </>
           )}
@@ -150,7 +167,7 @@ export const RelatedBlogCharacter = ({
             <>
               <SectionTitle>Bài viết về nhân vật thuộc truyện</SectionTitle>
               {relatedCharacters.map((char) => (
-                <BlogItem key={char.id} blog={char} type="COMIC" />
+                <BlogItem key={char.id} blog={char} type="COMIC"/>
               ))}
             </>
           )}
@@ -159,7 +176,7 @@ export const RelatedBlogCharacter = ({
             <>
               <SectionTitle>Bài viết bình luận về truyện</SectionTitle>
               {relatedInsightBlogs.map((blog) => (
-                <BlogItem key={blog.id} blog={blog} type="COMIC" />
+                <BlogItem key={blog.id} blog={blog} type="COMIC"/>
               ))}
             </>
           )}
@@ -168,17 +185,17 @@ export const RelatedBlogCharacter = ({
 
       {blogType === 'INSIGHT' && (
         <>
-          {relatedBlogComic && (
+          {validate(relatedBlogComic) && (
             <>
               <SectionTitle>Truyện/Tiểu thuyết liên quan</SectionTitle>
-              <BlogItem blog={relatedBlogComic} type="COMIC" />
+              <BlogItem blog={relatedBlogComic} type="COMIC"/>
             </>
           )}
 
-          {relatedCharacters && (
+          {validate(relatedCharacters) && (
             <>
               <SectionTitle>Bài viết về nhân vật liên quan</SectionTitle>
-              <BlogItem blog={relatedCharacters} type="CHARACTER" />
+              <BlogItem blog={relatedCharacters} type="CHARACTER"/>
             </>
           )}
         </>

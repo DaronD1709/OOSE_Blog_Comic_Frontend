@@ -5,21 +5,21 @@ import { getBlogCharacterPaginationAPI, getBlogComicPaginationAPI } from '../ser
 import { PAGINATION } from '../constants/api.js'
 import { message } from 'antd'
 import AppSidebar from '../components/Sidebar/AppSidebar.jsx'
+import { validate } from '../utils/validate.js'
 
 const ReviewPageMenu = [
   {
-    label: "Thể loại truyện",
+    label: 'Thể loại truyện',
     children: [
-      { label: "Action", to: "/genre/action" },
-      { label: "Adventure", to: "/genre/adventure" },
-      { label: "Drama", to: "/genre/drama" },
-      { label: "Fantasy", to: "/genre/fantasy" },
-      { label: "Romance", to: "/genre/romance" },
+      { label: 'Action', to: '/genre/action' },
+      { label: 'Adventure', to: '/genre/adventure' },
+      { label: 'Drama', to: '/genre/drama' },
+      { label: 'Fantasy', to: '/genre/fantasy' },
+      { label: 'Romance', to: '/genre/romance' },
     ],
   },
-  { label: "Tất cả truyện", to: "/all-comics" },
-];
-
+  { label: 'Tất cả truyện', to: '/all-comics' },
+]
 
 const CharacterPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -50,7 +50,7 @@ const CharacterPage = () => {
       </div>
       <div className="flex flex-col flex-1 pt-10 px-3 ">
         <div className="flex flex-wrap gap-5 h-[930px] justify-start overflow-y-scroll">
-          {blogs.length > 0 ? (
+          {validate(blogs) ? (
             blogs.map((comic) => (
               <VerticalCard key={comic.id} {...comic} />
             ))
@@ -60,7 +60,7 @@ const CharacterPage = () => {
         </div>
         <div className="flex justify-center mt-5 mb-13 pb-5">
           {
-            meta !== null &&
+            validate(meta) &&
             <AppPagination
               current={currentPage}
               total={meta.total}

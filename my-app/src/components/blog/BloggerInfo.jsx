@@ -4,7 +4,7 @@ import { PlusOutlined, UserDeleteOutlined } from '@ant-design/icons'
 
 export const BloggerInfo = ({ name, avatarUrl, date, onFollow, hasFollow, setHasFollow }) => {
   return (
-    <div className="flex items-center my-5 justify-between border border-gray-200 shadow-md rounded-2xl p-4 w-md">
+    <div className="flex items-center my-5 justify-between border border-gray-200 shadow-md rounded-2xl p-4 w-[600px]">
       {/* Left: Avatar + Info */}
       <div className="flex items-center gap-4">
         <Avatar

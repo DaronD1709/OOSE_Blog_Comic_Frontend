@@ -7,6 +7,8 @@ import { Image, message } from 'antd'
 import { getCommentCountOfBlogAPI } from '../../services/commentService.js'
 import { getFavouriteCountBlogAPI } from '../../services/favoriteService.js'
 import { getUserAvatar } from '../../constants/utility.js'
+import mythAvatar from '/src/assets/images/anonymous.png'
+import { validate } from '../../utils/validate.js'
 
 /**
  * props:
@@ -114,12 +116,12 @@ const HorizontalCard = ({
           <div className="flex items-center gap-3 text-sm mt-4">
             <div className="flex items-center gap-2">
               <img
-                src={getUserAvatar(author.avatar)}
-                alt={author.avatar}
+                src={validate(author) ? getUserAvatar(author.avatar) : mythAvatar}
+                alt={validate(author) ? author.avatar : 'Anonymous img'}
                 className="w-8 h-8 rounded-full object-cover"
               />
               <span className="font-medium text-gray-600 truncate max-w-[120px]">
-                {author.displayName}
+                {validate(author) ? author.displayName : 'Đã xóa'}
               </span>
               <span className="text-gray-400">•</span>
               <span className="text-gray-500">{formatDatetimeWithTimeFirst(createdAt)}</span>
