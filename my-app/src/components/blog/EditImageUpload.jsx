@@ -14,7 +14,7 @@ const EditImageUpload = ({ blogCharacterThumbnail, setBlogCharacterThumbnail }) 
     if (
       blogCharacterThumbnail !== null
     ) {
-      setImgSrc(`${URL_BACKEND_IMAGES}/${blogCharacterThumbnail}`)
+      setImgSrc(`${blogCharacterThumbnail}`)
     }
   }, [blogCharacterThumbnail])
 

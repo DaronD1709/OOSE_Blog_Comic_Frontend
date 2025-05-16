@@ -68,7 +68,7 @@ export const EditBlogComicPage = () => {
           setBlogComic(blogComicRes);
           setBlogCharacter(blogCharacterRes);
         }
-        setImgSrc(`${URL_BACKEND_IMAGES}/${finalRes.thumbnail}`);
+        setImgSrc(`${finalRes.thumbnail}`);
         setSelectedCategory(finalRes.categories);
         setSelectedTag(finalRes.tags);
         setBlogTitle(finalRes.title);

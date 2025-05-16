@@ -362,7 +362,7 @@ export const ViewBlogComicPage = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <Image
                     style={{ maxHeight: 650, maxWidth: 930 }}
-                    src={`${URL_BACKEND_IMAGES}/${blog.thumbnail}`}
+                    src={`${blog.thumbnail}`}
                     className="rounded-xl shadow-md group-hover:shadow-lg transition-all duration-300"
                   />
                 </div>

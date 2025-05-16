@@ -26,7 +26,7 @@ export const Character = ({ character, thumbnail }) => {
       >
         <Image
           className="rounded-xl"
-          src={`${URL_BACKEND_IMAGES}/${thumbnail}`}
+          src={`${thumbnail}`}
         />
         <CharacterInfo character={character} />
       </div>

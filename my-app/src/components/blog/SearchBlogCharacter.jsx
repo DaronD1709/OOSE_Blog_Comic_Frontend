@@ -87,7 +87,7 @@ export const SearchBlogCharacter = ({ blogCharacter, setBlogCharacter }) => {
                 {/* Thumbnail */}
                 <div className="w-[72px] h-[54px] flex-shrink-0 overflow-hidden rounded-lg shadow-sm">
                   <Image
-                    src={`${URL_BACKEND_IMAGES}/${blog.thumbnail}`}
+                    src={`${blog.thumbnail}`}
                     alt={blog.title}
                     width={72}
                     height={54}

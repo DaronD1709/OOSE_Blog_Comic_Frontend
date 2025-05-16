@@ -260,10 +260,7 @@ const SearchResultPage = () => {
                   <div className="flex items-center gap-4">
                     <Avatar
                       size={56}
-                      src={
-                        blogger.loginType === "LOCAL"
-                          ? `${URL_BACKEND_IMAGES}/${blogger.avatar}`
-                          : `${blogger.avatar}`
+                      src={`${blogger.avatar}`
                       }
                       className="border-2 border-blue-400"
                     />

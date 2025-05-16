@@ -1,5 +1,4 @@
 import { URL_BACKEND_IMAGES } from './images.js'
-import { avatarClasses } from '@mui/material'
 import { validate } from '../utils/validate.js'
 import mythAvatar from '../assets/images/anonymous.png'
 

@@ -66,7 +66,7 @@ const BlogIcon = ({ blog, type }) => {
       <div
         className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
       <Avatar
-        src={`${URL_BACKEND_IMAGES}/${blog.thumbnail}`}
+        src={`${blog.thumbnail}`}
         className="!w-20 !h-20 border-2 border-white shadow-md group-hover:scale-110 transition-transform duration-300"
       />
     </div>
