@@ -2,7 +2,7 @@ import { Card, Descriptions, Tag } from 'antd';
 import { UserOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 
 function UserDisplay({ userData }) {
-  const { fullName, email, username, role } = userData;
+  const { displayName, email, username, role } = userData;
 
   return (
     <div className="w-full">
@@ -15,7 +15,7 @@ function UserDisplay({ userData }) {
           <Descriptions.Item label="Tên hiển thị" labelStyle={{ fontWeight: 'bold' }}>
             <div className="flex items-center">
               <UserOutlined className="mr-3 text-blue-500" />
-              <span className="text-gray-800">{fullName}</span>
+              <span className="text-gray-800">{displayName}</span>
             </div>
           </Descriptions.Item>
           

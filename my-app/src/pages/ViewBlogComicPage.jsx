@@ -203,7 +203,7 @@ export const ViewBlogComicPage = () => {
           collapsible
           collapsed={collapsed}
           onCollapse={setCollapsed}
-          width={340}
+          width={300}
           collapsedWidth={80}
           trigger={null}
           className="!bg-gradient-to-b from-white to-gray-50 border-r border-gray-200 shadow-lg transition-all duration-300"
@@ -258,7 +258,7 @@ export const ViewBlogComicPage = () => {
 
         {/* Nội dung chính */}
         <Layout>
-          <Content className="flex gap-8 px-6 sm:px-10 py-8 justify-center bg-gradient-to-b from-white to-gray-50">
+          <Content className="flex gap-4 px-6 sm:px-10 py-8 justify-center ">
             <PostActions
               user={user}
               likes={blog.reaction || 0}
@@ -271,7 +271,7 @@ export const ViewBlogComicPage = () => {
               onShare={() => {}}
             />
 
-            <div className="max-w-[700px] grow bg-white rounded-2xl shadow-sm p-8">
+            <div className="max-w-auto grow  rounded-2xl shadow-sm p-8">
               <h1 className="font-bold text-4xl text-gray-800 py-4 leading-tight border-b border-gray-100">
                 {blog.title}
               </h1>
@@ -284,11 +284,7 @@ export const ViewBlogComicPage = () => {
                       ? blog.author.displayName
                       : "Tài khoản không tồn tại"
                   }
-                  avatarUrl={
-                    validate(blog.author)
-                      ? getUserAvatar(blog.author.avatar)
-                      : mythAvatar
-                  }
+                  avatarUrl={getUserAvatar(blog.author.avatar)}
                   date={formatDatetimeWithTimeFirst(blog.createdAt)}
                   onFollow={handleFollow}
                   setHasFollow={setHasFollow}

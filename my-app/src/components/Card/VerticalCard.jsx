@@ -132,7 +132,7 @@ const VerticalCard = (props) => {
             className="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300 line-clamp-2"
             style={{
               lineHeight: "1.4em",
-              height: "1.8em",
+              height: "3rem",
             }}
           >
             {title}

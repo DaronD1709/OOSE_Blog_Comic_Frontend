@@ -208,7 +208,7 @@ export const ViewBlogCharacterPage = () => {
             collapsible
             collapsed={collapsed}
             onCollapse={setCollapsed}
-            width={260}
+            width={300}
             collapsedWidth={80}
             trigger={null}
             className="!bg-white border-r border-gray-100 shadow-sm transition-all duration-300"
@@ -262,7 +262,7 @@ export const ViewBlogCharacterPage = () => {
           )}
           {/* Content */}
           <Layout>
-            <Content className="flex gap-6 px-10 py-6 justify-center">
+            <Content className="flex  px-10 py-6 justify-center">
               {/* Actions */}
               <PostActions
                 user={user}
@@ -284,6 +284,8 @@ export const ViewBlogCharacterPage = () => {
 
                   <BloggerInfo
                     hasFollow={hasFollow}
+                    name={validate(blog.author) ? blog.author.displayName : 'Tài khoản không còn nữa'}
+                    avatarUrl={getUserAvatar(blog.author.avatar)}
                     name={
                       validate(blog.author)
                         ? blog.author.displayName

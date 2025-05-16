@@ -31,9 +31,9 @@ const UserMenu = () => {
       ),
       onClick: () => {
         if (user && user.id) {
-          window.location.href = ROUTES.USER_BY_ID.replace(":id", user.id);
+          navigate(ROUTES.getUserProfile(user.id));
         } else {
-          window.location.href = ROUTES.LOGIN;
+          navigate(ROUTES.LOGIN);
         }
       },
     },
@@ -54,7 +54,7 @@ const UserMenu = () => {
           />
         </svg>
       ),
-      onClick: () => (window.location.href = ROUTES.NEW_COMIC),
+      onClick: () => navigate(ROUTES.NEW_COMIC),
     },
     {
       label: "Setting",
@@ -84,9 +84,9 @@ const UserMenu = () => {
 
   const goToLogin = () => {
     if (user && user.id) {
-      window.location.href = ROUTES.USER_BY_ID.replace(":id", user.id);
+      navigate(ROUTES.getUserProfile(user.id));
     } else {
-      window.location.href = ROUTES.LOGIN;
+      navigate(ROUTES.LOGIN);
     }
   };
 
@@ -122,14 +122,14 @@ const UserMenu = () => {
           </div>
           {open && (
             <div
-              className="absolute top-full right-0 mt-2 w-72 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden transform transition-all duration-300 ease-in-out animate-fadeIn"
+              className="fixed top-20 right-8 mt-2 w-72 bg-white border border-gray-200 rounded-xl shadow-xl z-[9999] overflow-hidden transform transition-all duration-300 ease-in-out animate-fadeIn"
               style={{ zIndex: 999999 }}
             >
               <div className="px-6 py-4 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700">
                 <div className="flex items-center gap-4">
                   <div className="relative">
                     <img
-                      src={getUserAvatar(user.avatar)}
+                      src={getUserAvatar(user?.avatar)}
                       alt="Avatar"
                       className="w-16 h-16 rounded-full object-cover ring-4 ring-white/30 shadow-lg transform hover:scale-105 transition-transform duration-300"
                     />
