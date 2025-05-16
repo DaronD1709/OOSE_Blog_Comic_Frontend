@@ -56,28 +56,47 @@ const Navbar = () => {
       </div>
 
       {/* Search box */}
-      <div className="flex-1 ml-4 flex justify-center">
-        <div className="relative w-[300px] max-w-xl">
-          <div className="relative flex items-center group">
-            <input
-              type="text"
-              placeholder="Tìm kiếm truyện, nhân vật..."
-              className="w-full pl-12 pr-32 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-orange-300/50 focus:border-transparent transition-all duration-300 group-hover:bg-white/15"
-            />
-            <svg
-              className="absolute left-4 w-5 h-5 text-white/70 group-hover:text-orange-300 transition-colors duration-300"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              viewBox="0 0 24 24"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="M21 21l-4.35-4.35" strokeLinecap="round" />
-            </svg>
-            <button className="absolute right-1.5 px-4 py-2 bg-white/10 hover:bg-orange-400 text-white rounded-full transition-all duration-300 flex items-center gap-2 text-sm font-medium backdrop-blur-sm hover:scale-105 hover:shadow-lg hover:shadow-orange-400/20">
-              <span>Tìm kiếm</span>
+      {user ? (
+        <div className="flex-1 ml-4 flex items-center justify-center gap-3">
+          <div className="relative w-[400px] max-w-xl">
+            <div className="relative flex items-center group">
+              <input
+                type="text"
+                placeholder="Tìm kiếm truyện, nhân vật..."
+                className="w-full pl-12 pr-32 py-2.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-orange-300/50 focus:border-transparent transition-all duration-300 group-hover:bg-white/15"
+              />
               <svg
-                className="w-4 h-4"
+                className="absolute left-4 w-5 h-5 text-white/70 group-hover:text-orange-300 transition-colors duration-300"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="M21 21l-4.35-4.35" strokeLinecap="round" />
+              </svg>
+              <button className="absolute right-1.5 px-4 py-1.5 bg-white/10 hover:bg-orange-400 text-white rounded-full transition-all duration-300 flex items-center gap-2 text-sm font-medium backdrop-blur-sm hover:scale-105 hover:shadow-lg hover:shadow-orange-400/20">
+                <span>Tìm kiếm</span>
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <Link to={ROUTES.SEARCH} className="group pt-1">
+            <button className="relative text-white bg-white/10 p-2 rounded-full hover:bg-white/20 focus:outline-none transition-all duration-300 hover:scale-110">
+              <svg
+                className="w-6 h-6 transition-all duration-300 transform group-hover:rotate-12"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={2}
@@ -86,35 +105,52 @@ const Navbar = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
                 />
               </svg>
             </button>
+          </Link>
+        </div>
+      ) : (
+        <div className="flex-1 ml-4 flex justify-center">
+          <div className="relative w-[400px] max-w-xl">
+            <div className="relative flex items-center group">
+              <input
+                type="text"
+                placeholder="Đăng nhập để tìm kiếm và khám phá thêm..."
+                className="w-full pl-12 pr-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-orange-300/50 focus:border-transparent transition-all duration-300 group-hover:bg-white/15"
+              />
+              <svg
+                className="absolute left-4 w-5 h-5 text-white/70 group-hover:text-orange-300 transition-colors duration-300"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="M21 21l-4.35-4.35" strokeLinecap="round" />
+              </svg>
+            </div>
           </div>
         </div>
-        <Link to={ROUTES.SEARCH} className="group ml-4 pt-1">
-          <button className="relative text-white bg-white/10 p-2 rounded-full hover:bg-white/20 focus:outline-none transition-all duration-300 hover:scale-110">
-            <svg
-              className="w-6 h-6 transition-all duration-300 transform group-hover:rotate-12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
-              />
-            </svg>
-          </button>
-        </Link>
-      </div>
+      )}
 
       {/* Right Side */}
-      <div className="flex align-center items-center gap-7">
-        <NotiIcon />
-        <UserMenu />
+      <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3">
+          {user && <NotiIcon />}
+          <UserMenu />
+        </div>
+      </div>
+
+      {/* Dropdown Container */}
+      <div
+        className="fixed top-0 left-0 w-full h-full pointer-events-none"
+        style={{ zIndex: 9999 }}
+      >
+        <div className="absolute top-20 right-8 pointer-events-auto">
+          {/* This div will contain all dropdowns */}
+        </div>
       </div>
     </nav>
   );

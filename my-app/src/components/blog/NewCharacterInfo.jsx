@@ -1,148 +1,271 @@
-import React, { useState } from 'react'
-import {  Divider, Form, Input, Modal } from 'antd'
-import { CharacterInfo } from './CharacterInfo.jsx'
-import ImageUpload from './ImageUpload.jsx'
- import editText from '/src/assets/images/edit-text.png'
-
+import React, { useState } from "react";
+import { Divider, Form, Input, Modal } from "antd";
+import { CharacterInfo } from "./CharacterInfo.jsx";
+import ImageUpload from "./ImageUpload.jsx";
+import editText from "/src/assets/images/edit-text.png";
 
 export const NewCharacterInfo = ({ character, setCharacter }) => {
-  const [form] = Form.useForm()
+  const [form] = Form.useForm();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const handleOk = () => {
-    setIsModalOpen(false)
-    form.submit()
-  }
+    setIsModalOpen(false);
+    form.submit();
+  };
   const handleCancel = () => {
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
   const handleEdit = () => {
-    setIsModalOpen(true)
-
-  }
+    setIsModalOpen(true);
+  };
   const onSaveInfo = (values) => {
-    // Lọc để chỉ lấy nhưng field có giá trị
     const filteredValues = Object.fromEntries(
       Object.entries(values).filter(
-        ([_, value]) => value !== undefined && value !== null && String(value).trim() !== ''
+        ([_, value]) =>
+          value !== undefined && value !== null && String(value).trim() !== ""
       )
-    )
-    setCharacter({ ...filteredValues })
-  }
+    );
+    setCharacter({ ...filteredValues });
+  };
+
+  const handleNameChange = (e) => {
+    setCharacter({ ...character, vietName: e.target.value });
+  };
 
   return (
     <>
-      <Modal title="Sửa đổi: Thông tin tổng quan nhân vật" className={'text-center'} width="1000px" open={isModalOpen}
-             okText={'Lưu thông tin'} cancelText={'Hủy lưu'}
-             onOk={handleOk} onCancel={handleCancel}>
-        <Divider></Divider>
-        <div className={'grid grid-cols-12 overflow-y-scroll'} style={{ height: '800px' }}>
-          <div className={'col-span-4 mr-5 bg-amber-200'}>
+      <Modal
+        title="Sửa đổi: Thông tin tổng quan nhân vật"
+        className="text-center"
+        width="1000px"
+        open={isModalOpen}
+        okText="Lưu thông tin"
+        cancelText="Hủy lưu"
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Divider />
+        <div
+          className="grid grid-cols-12 overflow-y-auto"
+          style={{ height: "800px" }}
+        >
+          <div className="col-span-4 mr-5 bg-amber-50 rounded-lg p-4">
+            {/* Left side content */}
           </div>
-          <div className={'col-span-8  px-5'}>
-            <Form layout={'vertical'} className={'font-bold'} form={form} onFinish={(values) => onSaveInfo(values)}>
-              <div className={'flex justify-center'}>
-                <div className={'bg-purple-500 font-bold text-white p-1 w-1/2 rounded-2xl'}>Thông Tin</div>
-              </div>
-              <Form.Item className="!mb-1.5" name="vietName" label="Tên Việt">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="chineseName" label="Tên Tiếng Trung">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="englishName" label="Tên Tiếng Anh">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="otherName" label="Tên Khác">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="alias" label="Bí Danh">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="age" label="Tuổi">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="gender" label="Giới Tính">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="pseudonym" label="Tên Giả">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="status" label="Tình Trạng">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="causeOfDeath" label="Nguyên Nhân Tử Vong">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="betrothed" label="Hôn Phu">
-                <Input/>
-              </Form.Item>
-              <div className={'flex justify-center'}>
-                <div className={'bg-purple-500 font-bold text-white p-1 w-1/2 rounded-2xl'}>Thế Lực</div>
-              </div>
-              <Form.Item className="!mb-1.5" name="faction" label="Phe Phái">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="sect" label="Tông Môn">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="clan" label="Gia Tộc">
-                <Input/>
-              </Form.Item>
-              <div className={'flex justify-center'}>
-                <div className={'bg-purple-500 font-bold text-white p-1 w-1/2 rounded-2xl'}>Nguồn gốc</div>
-              </div>
-              <Form.Item className="!mb-1.5" name="race" label="Chủng Tộc">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="bloodLine" label="Huyết Mạch">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="realm" label="Lãnh Thổ / Quốc Gia">
-                <Input/>
-              </Form.Item>
-              <div className={'flex justify-center'}>
-                <div className={'bg-purple-500 font-bold text-white p-1 w-1/2 rounded-2xl'}>Sức mạnh</div>
-              </div>
-              <Form.Item className="!mb-1.5" name="cultivationRealm" label="Cảnh Giới Tu Luyện">
-                <Input/>
-              </Form.Item>
-              <Form.Item className="!mb-1.5" name="bodyRealm" label="Cảnh Giới Thân Thể">
-                <Input/>
-              </Form.Item>
+          <div className="col-span-8 px-5">
+            <Form
+              layout="vertical"
+              className="font-medium"
+              form={form}
+              onFinish={(values) => onSaveInfo(values)}
+            >
+              <div className="space-y-6">
+                <div>
+                  <div className="flex justify-center mb-4">
+                    <div className="bg-blue-600 font-semibold text-white px-6 py-2 rounded-full shadow-sm">
+                      Thông Tin
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Form.Item
+                      className="!mb-0"
+                      name="vietName"
+                      label="Tên Việt"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item
+                      className="!mb-0"
+                      name="chineseName"
+                      label="Tên Tiếng Trung"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item
+                      className="!mb-0"
+                      name="englishName"
+                      label="Tên Tiếng Anh"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item
+                      className="!mb-0"
+                      name="otherName"
+                      label="Tên Khác"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item className="!mb-0" name="alias" label="Bí Danh">
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item className="!mb-0" name="age" label="Tuổi">
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item
+                      className="!mb-0"
+                      name="gender"
+                      label="Giới Tính"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item
+                      className="!mb-0"
+                      name="pseudonym"
+                      label="Tên Giả"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item
+                      className="!mb-0"
+                      name="status"
+                      label="Tình Trạng"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item
+                      className="!mb-0"
+                      name="causeOfDeath"
+                      label="Nguyên Nhân Tử Vong"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item
+                      className="!mb-0"
+                      name="betrothed"
+                      label="Hôn Phu"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                  </div>
+                </div>
 
-              <Form.Item className="!mb-1.5" name="combatPower" label="Sức Mạnh">
-                <Input/>
-              </Form.Item>
-              <div className={'flex justify-center'}>
-                <div className={'bg-purple-500 font-bold text-white p-1 w-1/2 rounded-2xl'}>Khác</div>
+                <div>
+                  <div className="flex justify-center mb-4">
+                    <div className="bg-purple-600 font-semibold text-white px-6 py-2 rounded-full shadow-sm">
+                      Thế Lực
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Form.Item
+                      className="!mb-0"
+                      name="faction"
+                      label="Phe Phái"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item className="!mb-0" name="sect" label="Tông Môn">
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item className="!mb-0" name="clan" label="Gia Tộc">
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-center mb-4">
+                    <div className="bg-purple-600 font-semibold text-white px-6 py-2 rounded-full shadow-sm">
+                      Nguồn gốc
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Form.Item className="!mb-0" name="race" label="Chủng Tộc">
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item
+                      className="!mb-0"
+                      name="bloodLine"
+                      label="Huyết Mạch"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item
+                      className="!mb-0"
+                      name="realm"
+                      label="Lãnh Thổ / Quốc Gia"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-center mb-4">
+                    <div className="bg-purple-600 font-semibold text-white px-6 py-2 rounded-full shadow-sm">
+                      Sức mạnh
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Form.Item
+                      className="!mb-0"
+                      name="cultivationRealm"
+                      label="Cảnh Giới Tu Luyện"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item
+                      className="!mb-0"
+                      name="bodyRealm"
+                      label="Cảnh Giới Thân Thể"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                    <Form.Item
+                      className="!mb-0"
+                      name="combatPower"
+                      label="Sức Mạnh"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-center mb-4">
+                    <div className="bg-purple-600 font-semibold text-white px-6 py-2 rounded-full shadow-sm">
+                      Khác
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Form.Item
+                      className="!mb-0"
+                      name="firstAppearance"
+                      label="Xuất Hiện Lần Đầu"
+                    >
+                      <Input className="rounded-lg hover:border-purple-400 focus:border-purple-500" />
+                    </Form.Item>
+                  </div>
+                </div>
               </div>
-              <Form.Item className="!mb-1.5" name="firstAppearance" label="Xuất Hiện Lần Đầu">
-                <Input/>
-              </Form.Item>
             </Form>
-
           </div>
         </div>
       </Modal>
-      <div className={'w-[220px]'}>
-        <div className="flex justify-center  ">
-          <div className={'flex justify-center items-center border w-full hover:bg-amber-300 p-2 rounded-2xl mb-1'}
-               onClick={handleEdit}>
-            <img src={`${editText}`} className={'w-auto h-5'}/>
-            <div className={'mb-0'}>Sửa thông tin</div>
-          </div>
+
+      <div className="w-[280px]">
+        <div className="flex justify-center mb-4">
+          <button
+            className="flex items-center justify-center w-full bg-amber-100 hover:bg-amber-200 transition-colors duration-200 p-3 rounded-xl shadow-sm border border-amber-200"
+            onClick={handleEdit}
+          >
+            <img src={editText} className="w-5 h-5 mr-2" alt="edit" />
+            <span className="font-medium">Sửa thông tin</span>
+          </button>
         </div>
-        <div className={'border-1 border-purple-500-300'}>
-          <Input placeHolder={'Tên nhân vật'} value={character !== null ? character.vietName : null}
-                 className={
-                   '!text-center !py-3 !px-[9px] !h-[2.5rem] !bg-amber-200 !font-bold'
-                 }
+
+        <div className="bg-white text-center rounded-xl shadow-sm border border-gray-100">
+          <Input
+            placeholder="Tên nhân vật"
+            value={character?.vietName || ""}
+            onChange={handleNameChange}
+            className="text-center py-3 px-3 h-12 bg-amber-50 font-semibold rounded-t-xl border-b border-amber-100"
           />
-          <ImageUpload/>
-          <CharacterInfo character={character}/>
+          <div className="p-4">
+            <ImageUpload />
+            <CharacterInfo character={character} />
+          </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};

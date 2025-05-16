@@ -125,10 +125,10 @@ const UserMenu = () => {
   }, []);
 
   return (
-    <div className="relative" ref={ref}>
+    <div className="relative h-12 flex items-center" ref={ref}>
       {user !== null ? (
         <>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center">
             <div className="relative group">
               <img
                 src={getUserAvatar(user.avatar)}
@@ -140,7 +140,7 @@ const UserMenu = () => {
             </div>
           </div>
           {open && (
-            <div className="absolute right-0 mt-3 w-72 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-hidden transform transition-all duration-300 ease-in-out animate-fadeIn">
+            <div className="fixed top-20 right-8 mt-2 w-72 bg-white border border-gray-200 rounded-xl shadow-xl z-[9999] overflow-hidden transform transition-all duration-300 ease-in-out animate-fadeIn">
               <div className="px-6 py-4 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700">
                 <div className="flex items-center gap-4">
                   <div className="relative">
@@ -208,7 +208,7 @@ const UserMenu = () => {
       ) : (
         <Button
           onClick={goToLogin}
-          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium px-6 py-2.5 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg flex items-center gap-2 border-0"
+          className="h-12 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg flex items-center gap-2 border-0"
         >
           <svg
             className="w-5 h-5"
