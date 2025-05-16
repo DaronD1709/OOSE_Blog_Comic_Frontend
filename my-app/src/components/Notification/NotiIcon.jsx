@@ -1,6 +1,10 @@
 // NoticeIcon.jsx
 import React, { useState, useRef, useEffect, useContext } from 'react'
-import { getNotificationByUserIdAPI, markAsReadNotificationAPI } from '../../services/notificationService.js'
+import {
+  deleteAllNotificationsByUserIdAPI,
+  getNotificationByUserIdAPI,
+  markAsReadNotificationAPI
+} from '../../services/notificationService.js'
 import { AuthContext } from '../../context/auth.context.jsx'
 import { URL_BACKEND_IMAGES } from '../../constants/images.js'
 import { formatDatetimeWithTimeFirst } from '../../services/helperService.js'
@@ -37,8 +41,13 @@ const NoticeIcon = () => {
     }
   }
 
-  const handleClear = () => {
-    setNotifications(notifications.map((noti) => ({ ...noti, read: true })))
+  const handleClear = async () => {
+    try {
+      const res = await deleteAllNotificationsByUserIdAPI({ userId: user.id })
+      setNotifications([])
+    } catch (err) {
+      message.error('Lỗi khi xóa toàn bộ tin nhắn')
+    }
   }
 
   const handleNotificationClick = async (notification) => {

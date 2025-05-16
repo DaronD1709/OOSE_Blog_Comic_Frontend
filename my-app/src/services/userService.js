@@ -138,3 +138,13 @@ export const getUserCountByRoleAPI = async (role) => {
     throw error
   }
 }
+
+export const deleteUserById = async (userId) => {
+  try {
+    // Sử dụng endpoint chuẩn để cập nhật thông tin người dùng
+    const response = await axios.delete(URL_BACKEND + `/api/v1/users/${userId}`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}

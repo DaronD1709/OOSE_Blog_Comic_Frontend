@@ -60,8 +60,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { saveCharacterThumbnailAPI, savePreviewThumbnailCharacterAPI } from '../services/blogService.js'
 import { customHeadingStyles } from './editorCustomStyleConstant.jsx'
-import TOCPlugin from './TOCPlugin';
-
+import TOCPlugin from './TOCPlugin'
 
 // Custom Base64 Upload Adapter
 class Base64UploadAdapter {
@@ -137,10 +136,9 @@ const processContentAndUploadImages = async (htmlContent, saveDataService) => {
 }
 
 const RichTextEditor = ({ result, setResult, setPreview, isImageSaved, setIsImageSaved, saveBlog }) => {
-  const [content, setContent] = useState('<i>Nhập nội dung bài viết...</i>')
   const editorRef = useRef(null)
   const handleSaveButton = async () => {
-    const processedContent = await processContentAndUploadImages(content, saveCharacterThumbnailAPI)
+    const processedContent = await processContentAndUploadImages(result, saveCharacterThumbnailAPI)
     setResult(processedContent)
     if (isImageSaved === false) {
       setIsImageSaved(true)
@@ -150,13 +148,11 @@ const RichTextEditor = ({ result, setResult, setPreview, isImageSaved, setIsImag
     }
   }
   const handlePreviewButton = async () => {
-    const processedContent = await processContentAndUploadImages(content, savePreviewThumbnailCharacterAPI)
+    const processedContent = await processContentAndUploadImages(result, savePreviewThumbnailCharacterAPI)
     setPreview(processedContent)
   }
   useEffect(() => {
-    if (result && result.trim().length > 0) {
-      setContent(result)
-    }
+
   }, [result])
   return (
     <>
@@ -291,48 +287,98 @@ const RichTextEditor = ({ result, setResult, setPreview, isImageSaved, setIsImag
             options: [
               { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
               {
-                model: 'heading1', view: {
+                model: 'headingCustom1',
+                view: {
                   name: 'h1',
-                  classes: 'ck-heading_heading1'
-                }, title: 'Heading 1', class: 'ck-heading_heading1', converterPriority: 'high'
+                  attributes: {
+                    class: 'ck-heading_heading1',
+                    id: 'my_heading_ID',
+                  }
+                },
+                title: 'Heading 1 custom',
+                class: 'ck-heading_heading1',
+
+                // It needs to be converted before the standard 'heading2'.
+                converterPriority: 'high'
               },
               {
-                model: 'heading2', view: {
+                model: 'headingCustom2',
+                view: {
                   name: 'h2',
-                  classes: 'ck-heading_heading2'
-                }, title: 'Heading 2', class: 'ck-heading_heading2', converterPriority: 'high'
-              },
+                  attributes: {
+                    class: 'ck-heading_heading2',
+                    id: 'my_heading_ID',
+                  }
+                },
+                title: 'Heading 2 custom',
+                class: 'ck-heading_heading2',
+
+                // It needs to be converted before the standard 'heading2'.
+                converterPriority: 'high'
+              }
+              ,
               {
-                model: 'heading3', view: {
+                model: 'headingCustom3',
+                view: {
                   name: 'h3',
-                  classes: 'ck-heading_heading3'
-                }, title: 'Heading 3', class: 'ck-heading_heading3'
-              },
+                  attributes: {
+                    class: 'ck-heading_heading3',
+                    id: 'my_heading_ID',
+                  }
+                },
+                title: 'Heading 3 custom',
+                class: 'ck-heading_heading3',
+
+                // It needs to be converted before the standard 'heading2'.
+                converterPriority: 'high'
+              }
+              ,
               {
-                model: 'heading4', view: {
+                model: 'headingCustom4',
+                view: {
                   name: 'h4',
-                  classes: 'ck-heading_heading4'
-                }, title: 'Heading 4', class: 'ck-heading_heading4'
-              },
+                  attributes: {
+                    class: 'ck-heading_heading4',
+                    id: 'my_heading_ID',
+                  }
+                },
+                title: 'Heading 4 custom',
+                class: 'ck-heading_heading4',
+
+                // It needs to be converted before the standard 'heading2'.
+                converterPriority: 'high'
+              }
+              ,
               {
-                model: 'heading5', view: {
+                model: 'headingCustom5',
+                view: {
                   name: 'h5',
-                  classes: 'ck-heading_heading5'
-                }, title: 'Heading 5', class: 'ck-heading_heading5'
-              },
-              { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' },
-              // {
-              //   model: 'headingFancy',
-              //   view: {
-              //     name: 'h2',
-              //     classes: 'fancy'
-              //   },
-              //   title: 'Heading 2 (fancy)',
-              //   class: 'ck-heading_heading2_fancy',
-              //
-              //   // It needs to be converted before the standard 'heading2'.
-              //   converterPriority: 'high'
-              // }
+                  attributes: {
+                    class: 'ck-heading_heading5',
+                    id: 'my_heading_ID',
+                  }
+                },
+                title: 'Heading 5 custom',
+                class: 'ck-heading_heading5',
+
+                // It needs to be converted before the standard 'heading2'.
+                converterPriority: 'high'
+              }
+              ,
+              {
+                model: 'headingCustom6',
+                view: {
+                  name: 'h6',
+                  attributes: {
+                    class: 'ck-heading_heading6',
+                    id: 'my_heading_ID',
+                  }
+                },
+                title: 'Heading 6 custom',
+                class: 'ck-heading_heading6',
+                // It needs to be converted before the standard 'heading2'.
+                converterPriority: 'high'
+              }
             ],
           },
           htmlSupport: {
@@ -357,11 +403,11 @@ const RichTextEditor = ({ result, setResult, setPreview, isImageSaved, setIsImag
         }}
         onChange={(event, editor) => {
           const data = editor.getData()
-          setContent(data)
+          setResult(data)
         }}
         onReady={(editor) => {
           editorRef.current = editor
-          setContent(editor.getData())
+          setResult(editor.getData())
         }}
       />
       <div class={'flex justify-start gap-4 mt-3'}>

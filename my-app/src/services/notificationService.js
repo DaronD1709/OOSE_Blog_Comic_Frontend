@@ -18,3 +18,12 @@ export const markAsReadNotificationAPI = async ({ notificationId }) => {
     throw error
   }
 }
+
+export const deleteAllNotificationsByUserIdAPI = async ({ userId }) => {
+  try {
+    const response = await axios.delete(URL_BACKEND + `/api/v1/notifications?userId=${userId}`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}

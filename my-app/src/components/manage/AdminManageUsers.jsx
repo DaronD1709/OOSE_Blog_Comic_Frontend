@@ -6,15 +6,16 @@ import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined'
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined'
 import { testData } from '../../data_testing/testData'
-import { fetchAllUsers } from '../../services/userService.js'
+import { deleteUserById, fetchAllUsers } from '../../services/userService.js'
 import { useEffect, useState } from 'react'
 import { message } from 'antd'
+import { updateBlogStatusAPI } from '../../services/blogService.js'
 
 const AdminManageUsers = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
   const [users, setUsers] = useState([])
-
+  const [selectedRows, setSelectedRows] = useState([]) //
   useEffect(() => {
     getAllUser()
   }, [])
@@ -28,6 +29,9 @@ const AdminManageUsers = () => {
     }
 
   }
+
+
+
   const columns = [
     { field: 'id', headerName: 'ID' },
     {
@@ -72,7 +76,16 @@ const AdminManageUsers = () => {
       },
     },
   ]
-
+  const handleDeleteUser = async () => {
+    try {
+      // Send delete API request for selected blogs
+      await Promise.all(selectedRows.map((id) => deleteUserById(`${params.row.id}`)))
+      message.success('Bài viết đã được xóa.')
+      getAllBlog() // Reload blogs after action
+    } catch (err) {
+      message.error('Lỗi khi xóa bài viết.')
+    }
+  }
   return (
     <Box m="20px">
       <div className="flex items-center justify-between mb-6">
@@ -84,6 +97,7 @@ const AdminManageUsers = () => {
         </div>
         <div className="flex space-x-20 gap-5">
           <button
+            onClick={handleDeleteUser}
             className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-xl shadow transition duration-200">
             Delete
           </button>
@@ -135,7 +149,10 @@ const AdminManageUsers = () => {
             checkboxSelection
             rows={users}
             columns={columns}
-            showToolbar
+            onRowSelectionModelChange={(newSelection) => {
+              const selectedIds = Array.from(newSelection.ids)
+              setSelectedRows(selectedIds)
+            }}
           />
         }
 

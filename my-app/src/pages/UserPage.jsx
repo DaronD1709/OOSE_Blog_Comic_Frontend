@@ -20,6 +20,7 @@ import {
 } from "../services/userService";
 import { getFollowingByUserAPI } from '../services/followService.js';
 import { AuthContext } from '../context/auth.context.jsx';
+import { getUserAvatar } from '../constants/utility.js'
 
 const { TabPane } = Tabs;
 
@@ -141,7 +142,7 @@ const UserPage = () => {
           <div className="bg-white rounded-lg shadow p-6 mb-6 flex flex-col md:flex-row gap-8 items-start">
             <div className="md:w-2/5 flex justify-center">
               <AvatarDisplay
-                avatar={userData.avatar}
+                avatar={user.avatar}
                 size={200}
                 className="rounded-full border-2 border-gray-300"
               />

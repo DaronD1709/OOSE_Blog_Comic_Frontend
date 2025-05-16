@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
-import { Upload, message, Avatar } from 'antd';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { beforeUpload } from '../../utils/imageUtils';
-import { URL_BACKEND } from '../../constants/api';
+import { useState, useEffect } from 'react'
+import { Upload, message, Avatar } from 'antd'
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import { beforeUpload } from '../../utils/imageUtils'
+import { URL_BACKEND } from '../../constants/api'
 
 // Component chỉ hiển thị avatar
-export function AvatarDisplay({ avatar }) {
+export function AvatarDisplay ({ avatar }) {
   const getAvatarUrl = (avatar) => {
-    if (!avatar) return null;
-    if (avatar.startsWith('http')) return avatar;
-    return `${URL_BACKEND}/uploads/${avatar}`;
-  };
+    if (!avatar) return null
+    if (avatar.startsWith('https')) return avatar
+    return `${URL_BACKEND}/uploads/${avatar}`
+  }
   return (
     <div className="flex flex-col items-center w-full">
       <Avatar
@@ -19,52 +19,52 @@ export function AvatarDisplay({ avatar }) {
         className="rounded-full border-2 border-gray-200"
       />
     </div>
-  );
+  )
 }
 
 // Component upload avatar
-function AvatarUpload({ initialAvatar, onUpload }) {
-  const [loading, setLoading] = useState(false);
+function AvatarUpload ({ initialAvatar, onUpload }) {
+  const [loading, setLoading] = useState(false)
   const getAvatarUrl = (avatar) => {
-    if (!avatar) return null;
-    if (avatar.startsWith('http')) return avatar;
-    return `${URL_BACKEND}/uploads/${avatar}`;
-  };
-  const [imageUrl, setImageUrl] = useState(getAvatarUrl(initialAvatar));
+    if (!avatar) return null
+    if (avatar.startsWith('http')) return avatar
+    return `${URL_BACKEND}/uploads/${avatar}`
+  }
+  const [imageUrl, setImageUrl] = useState(getAvatarUrl(initialAvatar))
 
   // Thêm useEffect để cập nhật lại imageUrl khi initialAvatar thay đổi
   useEffect(() => {
-    setImageUrl(getAvatarUrl(initialAvatar));
-  }, [initialAvatar]);
+    setImageUrl(getAvatarUrl(initialAvatar))
+  }, [initialAvatar])
 
   const handleChange = async (info) => {
-    if (!onUpload) return;
+    if (!onUpload) return
     if (info.file.status === 'uploading') {
-      setLoading(true);
-      return;
+      setLoading(true)
+      return
     }
     if (info.file.status === 'done') {
       try {
-        const avatarFileName = await onUpload(info.file.originFileObj);
-        setImageUrl(getAvatarUrl(avatarFileName));
+        const avatarFileName = await onUpload(info.file.originFileObj)
+        setImageUrl(getAvatarUrl(avatarFileName))
       } catch (error) {
-        console.error('Error uploading avatar:', error);
-        message.error('Tải ảnh lên thất bại.');
+        console.error('Error uploading avatar:', error)
+        message.error('Tải ảnh lên thất bại.')
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     }
-  };
+  }
 
   const customRequest = ({ file, onSuccess }) => {
     setTimeout(() => {
-      onSuccess("ok");
-    }, 0);
-  };
+      onSuccess('ok')
+    }, 0)
+  }
 
   const uploadButton = (
     <div className="flex flex-col items-center">
-      {loading ? <LoadingOutlined style={{ fontSize: 64 }} /> : <PlusOutlined style={{ fontSize: 64 }} />}
+      {loading ? <LoadingOutlined style={{ fontSize: 64 }}/> : <PlusOutlined style={{ fontSize: 64 }}/>}
       <div className="mt-4">
         <button
           type="button"
@@ -75,7 +75,7 @@ function AvatarUpload({ initialAvatar, onUpload }) {
         </button>
       </div>
     </div>
-  );
+  )
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -90,7 +90,7 @@ function AvatarUpload({ initialAvatar, onUpload }) {
       >
         {imageUrl ? (
           <Avatar
-            src={imageUrl}
+            src={getAvatarUrl(imageUrl)}
             size={100}
             className="rounded-full border-2 border-gray-200"
           />
@@ -102,7 +102,7 @@ function AvatarUpload({ initialAvatar, onUpload }) {
         Nhấn để thay đổi ảnh đại diện
       </p>
     </div>
-  );
+  )
 }
 
-export default AvatarUpload;
+export default AvatarUpload

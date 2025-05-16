@@ -48,8 +48,24 @@ export default class TOCPlugin extends Plugin {
           const text = heading.querySelector('strong')?.textContent || heading.textContent || `heading-${index}`
 
           // Tạo id: giữ nguyên dấu tiếng Việt, thay space bằng _
-          const id = text.trim().replace(/\s+/g, '_')
-          heading.id = id
+          const toSlug = (str) => {
+            return str
+              .toLowerCase()
+              .normalize('NFD') // loại dấu tiếng Việt
+              .replace(/[\u0300-\u036f]/g, '')
+              .replace(/[^a-z0-9 ]/g, '') // bỏ ký tự đặc biệt
+              .replace(/\s+/g, '-') // space -> dash
+              .replace(/^-+|-+$/g, '')
+          }
+
+// Gán id duy nhất
+          let id = toSlug(text)
+          let baseId = id
+          let suffix = 1
+          while (doc.getElementById(id)) {
+            id = `${baseId}-${suffix++}`
+          }
+          heading.setAttribute('id', id)
 
           // Tạo item cho TOC
           const listItem = document.createElement('li')
@@ -119,6 +135,7 @@ export default class TOCPlugin extends Plugin {
         // Gộp mục lục vào nội dung
         const newContent = tocWrapper.outerHTML + doc.body.innerHTML
         editor.setData(newContent)
+        console.log('Next')
       })
 
       return view

@@ -9,6 +9,7 @@ import { getAllBlogAPI, getBlogByIdAPI, updateBlogStatusAPI } from '../../servic
 import { useEffect, useState } from 'react'
 import { message } from 'antd'
 import { ROUTES } from '../../constants/api.js'
+import { deleteUserById } from '../../services/userService.js'
 
 const AdminManageBlogs = () => {
   const theme = useTheme()
@@ -41,7 +42,16 @@ const AdminManageBlogs = () => {
       message.error('Lỗi khi chấp nhận bài viết.')
     }
   }
-
+  const handleDeleteUser = async () => {
+    try {
+      // Send delete API request for selected blogs
+      await Promise.all(selectedRows.map((id) => deleteUserById(`${params.row.id}`)))
+      message.success('Bài viết đã được xóa.')
+      getAllBlog() // Reload blogs after action
+    } catch (err) {
+      message.error('Lỗi khi xóa bài viết.')
+    }
+  }
   const navigateToBlog = async (blogId) => {
     try {
       const blog = await getBlogByIdAPI(blogId)
@@ -61,23 +71,13 @@ const AdminManageBlogs = () => {
     try {
       // Send reject API request for selected blogs
       await Promise.all(selectedRows.map((id) => updateBlogStatusAPI({ blogId: id, status: 'DENIED' })))
-      message.success('Bài viết đã bị từ chối.')
+      message.success('Bài viết đã bị ẩn.')
       getAllBlog() // Reload blogs after action
     } catch (err) {
-      message.error('Lỗi khi từ chối bài viết.')
+      message.error('Lỗi khi ẩn bài viết.')
     }
   }
 
-  const handleDelete = async () => {
-    try {
-      // Send delete API request for selected blogs
-      await Promise.all(selectedRows.map((id) => deleteBlogAPI(id)))
-      message.success('Bài viết đã được xóa.')
-      getAllBlog() // Reload blogs after action
-    } catch (err) {
-      message.error('Lỗi khi xóa bài viết.')
-    }
-  }
   const columns = [
     { field: 'id', headerName: 'ID', flex: 0.5 },
     {
@@ -131,7 +131,7 @@ const AdminManageBlogs = () => {
           </button>
           <button
             className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-xl shadow transition duration-200"
-            onClick={handleDelete} // Call delete function
+            onClick={handleDeleteUser} // Call delete function
           >
             Delete
           </button>
