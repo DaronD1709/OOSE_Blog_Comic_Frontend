@@ -150,7 +150,7 @@ const RootApp = () => {
     },
     {
       path: '/blogger',
-      element: <RequireRole allowedRoles={['BLOGGER', 'ADMIN']}/>, // chỉ kiểm tra quyền
+      element: <RequireRole allowedRoles={['BLOGGER', 'ADMIN','USER']}/>, // chỉ kiểm tra quyền
       children: [
         {
           element: <App/>, // dùng App làm layout (Navbar/Footer/Outlet)
