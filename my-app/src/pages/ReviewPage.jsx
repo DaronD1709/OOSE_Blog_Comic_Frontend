@@ -26,43 +26,36 @@ const ReviewPage = () => {
   const [selectedGenre, setSelectedGenre] = useState(null);
   const [blogs, setBlogs] = useState([]);
   const [meta, setMeta] = useState(null);
+
   useEffect(() => {
     getBlogs();
   }, [currentPage]);
+
   const getBlogs = async () => {
     try {
-      const res = await getBlogComicPaginationAPI(
-        currentPage - 1,
-        PAGINATION.SIZE
-      );
+      const res = await getBlogComicPaginationAPI(currentPage - 1, 9);
       setBlogs(res.result);
       setMeta(res.meta);
     } catch (err) {
       message.error(err.data);
     }
   };
-  // const filteredComics = selectedGenre
-  //   ? comics.filter((comic) => comic.types.includes(selectedGenre))
-  //   : comics
 
-  // Reset về trang đầu mỗi khi chọn thể loại mới
   const handleGenreSelect = (genre) => {
     setSelectedGenre(genre);
     setCurrentPage(1);
   };
 
   return (
-    <div className="flex h-full ">
+    <div className="flex h-full">
       <div>
         <AppSidebar
-          // Truyền menu và hàm xử lý sự kiện chọn thể loại
           menuItems={ReviewPageMenu}
-          // Truyền hàm xử lý sự kiện chọn thể loại
           onGenreSelect={handleGenreSelect}
         />
       </div>
       <div className="flex flex-col flex-1 pt-10 px-3">
-        <div className="flex flex-wrap gap-5 h-[930px] justify-start overflow-y-scroll">
+        <div className="grid grid-cols-3 gap-5 h-[930px] overflow-y-auto">
           {validate(blogs) ? (
             blogs.map((comic) => <VerticalCard key={comic.id} {...comic} />)
           ) : (
@@ -74,7 +67,7 @@ const ReviewPage = () => {
             <AppPagination
               current={currentPage}
               total={meta.total}
-              pageSize={meta.pageSize}
+              pageSize={9}
               onChange={setCurrentPage}
             />
           )}

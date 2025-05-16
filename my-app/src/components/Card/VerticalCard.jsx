@@ -79,7 +79,7 @@ const VerticalCard = (props) => {
               alt={title}
               src={`${getThumbnail(thumbnail)}`}
               className="group-hover:scale-105 transition-transform duration-300"
-              style={{ width: "100%", height: 200, objectFit: "cover" }}
+              style={{ width: "100%", height: 300, objectFit: "cover" }}
             />
 
             <div
@@ -95,7 +95,7 @@ const VerticalCard = (props) => {
               {categories.map((tag) => (
                 <span
                   key={tag.id}
-                  className="px-2.5 py-0.5 text-xs font-medium text-rose-400 border border-rose-400/30 bg-rose-400/10 backdrop-blur-sm rounded-md"
+                  className="px-2.5 py-0.5 text-xs font-medium text-blue-400 border border-blue-400/30 bg-blue-100 rounded-md"
                 >
                   {tag.name}
                 </span>
@@ -115,7 +115,7 @@ const VerticalCard = (props) => {
               {tags.map((category) => (
                 <span
                   key={category.id}
-                  className="px-2.5 py-0.5 text-xs font-medium text-green-400 border border-green-400/30 bg-green-400/10 backdrop-blur-sm rounded-md"
+                  className="px-2.5 py-0.5 text-xs font-medium text-emerald-500 border border-emerald-200 bg-emerald-50 rounded-md"
                 >
                   {category.name}
                 </span>
@@ -129,16 +129,16 @@ const VerticalCard = (props) => {
             {formatDatetimeWithTimeFirst(createdAt)}
           </p>
           <h3
-            className="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300 mb-2 line-clamp-2"
+            className="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300 line-clamp-2"
             style={{
               lineHeight: "1.4em",
-              height: "2.8em",
+              height: "1.8em",
             }}
           >
             {title}
           </h3>
           <p
-            className="text-sm text-gray-600 mb-4 line-clamp-3"
+            className="text-sm text-gray-600 mb-5 line-clamp-3"
             style={{
               lineHeight: "1.5em",
               height: "4.5em",
