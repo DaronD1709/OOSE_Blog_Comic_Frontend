@@ -1,4 +1,7 @@
 import axios from 'axios'
+import { message } from 'antd'
+import { useContext } from 'react'
+import { AuthContext } from '../context/auth.context.jsx'
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -77,8 +80,7 @@ instance.interceptors.response.use(
         return instance(originalRequest)
       } catch (err) {
         processQueue(err, null)
-        // localStorage.removeItem('access_token')
-        // window.location.href = '/login'
+        window.dispatchEvent(new Event('auth-expired'))
         return Promise.reject(err)
       } finally {
         isRefreshing = false

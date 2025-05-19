@@ -147,7 +147,7 @@ const UserPage = () => {
         <TabPane tab="Đang theo dõi" key="4">
           <div className="bg-white rounded-lg shadow p-6 mb-6">
             <h2 className="text-xl font-semibold mb-4">Blogger đang theo dõi</h2>
-            <FollowingList following={followingList.map(f => f.bloggerId || f.id || f)}/>
+            <FollowingList following={followingList.map(f =>f.blogger.id )}/>
           </div>
         </TabPane>
       </Tabs>

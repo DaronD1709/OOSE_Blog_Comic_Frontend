@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Button,
   Checkbox,
@@ -11,11 +11,14 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { loginAPI } from "../services/authService.js";
 import { ROUTES, URL_BACKEND } from "../constants/api.js";
+import { AuthContext } from '../context/auth.context.jsx'
+import { fetchAccountAPI } from '../services/userService.js'
 
 const LoginPage = () => {
   const [form] = Form.useForm();
   const [verifyEmail, setVerifyEmail] = useState(false);
   const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext)
   const handleGoogleLogin = () => {
     window.location.href = URL_BACKEND + "/oauth2/authorization/google";
   };
@@ -36,10 +39,19 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
+      fetchAccount()
       navigate("/");
     }
   }, [navigate]);
+  const fetchAccount = async () => {
+    try {
+      const res = await fetchAccountAPI()
+      setUser(res)
+    } catch (err) {
+      message.error('Lỗi khi cố gắng truy vấn dữ liệu người dùng')
+    }
 
+  }
   const onFinish = async (values) => {
     try {
       console.log(">>> Check values ", values);
@@ -55,6 +67,7 @@ const LoginPage = () => {
         const accessToken = response.accessToken;
         localStorage.setItem("access_token", accessToken);
         message.success("Đang nhập thành công ");
+        fetchAccount()
         navigate("/");
       }
     } catch (error) {

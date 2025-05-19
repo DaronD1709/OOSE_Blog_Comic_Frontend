@@ -35,6 +35,7 @@ import {
 import { getUserAvatar } from "../constants/utility.js";
 import mythAvatar from "/src/assets/images/anonymous.png";
 import { validate } from "../utils/validate.js";
+import Rating from '../components/Rating.jsx'
 
 export const ViewBlogCharacterPage = () => {
   const { id } = useParams();
@@ -299,7 +300,20 @@ export const ViewBlogCharacterPage = () => {
                     onFollow={toggleFollowBlogger}
                     setHasFollow={setHasFollow}
                   />
-
+                  <Rating
+                    initialRating={blog.rating}
+                    ratingCount={blog.rateCount}
+                    user={user}
+                    blogId={blog.id}
+                    onRate={(newRating) => {
+                      // Update blog rating in state
+                      setBlog((prev) => ({
+                        ...prev,
+                        rating: newRating,
+                        rateCount: prev.rateCount + 1,
+                      }))
+                    }}
+                  />
                   <div
                     className="prose prose-lg max-w-none"
                     dangerouslySetInnerHTML={{ __html: blog.content }}
