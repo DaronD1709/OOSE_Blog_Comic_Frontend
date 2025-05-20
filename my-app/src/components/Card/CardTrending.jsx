@@ -1,10 +1,10 @@
 import React from "react";
-import slugify from "../../utils/format";
 import { Link } from "react-router-dom";
+import { ROUTES } from "../../constants/api.js";
 
-const TopReviewCard = ({ index, avatar, title, date }) => {
+const TopReviewCard = ({ id, index, avatar, title, date }) => {
   return (
-    <Link to={`/${slugify(title)}`}>
+    <Link to={`${ROUTES.getViewComic(id)}`}>
       <div className="w-full hover:shadow-lg transition-all duration-300 rounded-xl px-4 py-2 group">
         <div className="flex items-center gap-4">
           {/* Index Badge */}
