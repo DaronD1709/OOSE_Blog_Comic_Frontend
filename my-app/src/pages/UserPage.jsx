@@ -117,7 +117,7 @@ const UserPage = () => {
           <div className="bg-white rounded-lg shadow p-6 mb-6 flex flex-col md:flex-row gap-8 items-start">
             <div className="md:w-2/5 flex justify-center">
               <AvatarDisplay
-                avatar={user.avatar}
+                avatar={user?.avatar}
                 size={200}
                 className="rounded-full border-2 border-gray-300"
               />
@@ -131,7 +131,7 @@ const UserPage = () => {
           <div className="bg-white rounded-lg shadow p-6 mb-6 flex flex-col md:flex-row gap-8 items-start">
             <div className="md:w-2/5 flex justify-center">
               {/* Chỉ cho phép upload ở tab này */}
-              <AvatarUpload initialAvatar={getUserAvatar(user.avatar)} onUpload={handleAvatarUpload}/>
+              <AvatarUpload initialAvatar={getUserAvatar(user?.avatar)} onUpload={handleAvatarUpload}/>
             </div>
             <div className="md:w-3/5">
               <UserForm initialData={user} setUser={setUser}/>

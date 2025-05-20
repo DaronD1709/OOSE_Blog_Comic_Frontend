@@ -5,7 +5,7 @@ import AdminHeader from '../../components/AdminHeader'
 import { useTheme } from '@mui/material'
 import { mockBlogs } from '../../data_testing/testData'
 import { useNavigate } from 'react-router-dom'
-import { getAllBlogAPI, getBlogByIdAPI, updateBlogStatusAPI } from '../../services/blogService.js'
+import { deleteBlogByIdAPI, getAllBlogAPI, getBlogByIdAPI, updateBlogStatusAPI } from '../../services/blogService.js'
 import { useEffect, useState } from 'react'
 import { message } from 'antd'
 import { ROUTES } from '../../constants/api.js'
@@ -42,10 +42,10 @@ const AdminManageBlogs = () => {
       message.error('Lỗi khi chấp nhận bài viết.')
     }
   }
-  const handleDeleteUser = async () => {
+  const handleDeleteBlog = async () => {
     try {
       // Send delete API request for selected blogs
-      await Promise.all(selectedRows.map((id) => deleteUserById(`${params.row.id}`)))
+      await Promise.all(selectedRows.map((id) => deleteBlogByIdAPI(id)))
       message.success('Bài viết đã được xóa.')
       getAllBlog() // Reload blogs after action
     } catch (err) {
@@ -131,7 +131,7 @@ const AdminManageBlogs = () => {
           </button>
           <button
             className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-xl shadow transition duration-200"
-            onClick={handleDeleteUser} // Call delete function
+            onClick={handleDeleteBlog} // Call delete function
           >
             Delete
           </button>

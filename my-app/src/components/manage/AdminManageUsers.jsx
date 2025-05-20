@@ -85,6 +85,17 @@ const AdminManageUsers = () => {
     }
   }
 
+  const handleUnlockUser = async () => {
+    try {
+      // Send delete API request for selected blogs
+      await Promise.all(selectedRows.map((id) => updateUserStatusAPI({ userId: id, status: 'ACTIVE' })))
+      message.success('Tài khoản người dùng đã được mở khóa.')
+      getAllUser() // Reload blogs after action
+    } catch (err) {
+      message.error('Lỗi khi mở khóa tài khoản người dùng.')
+    }
+  }
+
   const handleLockUser = async () => {
     try {
       // Send delete API request for selected blogs
@@ -116,6 +127,7 @@ const AdminManageUsers = () => {
             Lock
           </button>
           <button
+            onClick={handleUnlockUser}
             className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-xl shadow transition duration-200">
             Unlock
           </button>

@@ -321,12 +321,22 @@ export const getAllBlogAPI = async (page, size) => {
 export const updateBlogStatusAPI = async ({ blogId, status }) => {
 
   try {
-    const response = await axios.patch(URL_BACKEND + `/api/v1/blogs/review/${blogId}`,  JSON.stringify(status),
+    const response = await axios.patch(URL_BACKEND + `/api/v1/blogs/review/${blogId}`, JSON.stringify(status),
       {
         headers: {
           'Content-Type': 'application/json',
         },
       })
+    // Xử lý hoặc kiểm tra dữ liệu nếu cần
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const deleteBlogByIdAPI = async (id) => {
+  try {
+    const response = await axios.delete(URL_BACKEND + `/api/v1/blogs/${id}`)
     // Xử lý hoặc kiểm tra dữ liệu nếu cần
     return response
   } catch (error) {

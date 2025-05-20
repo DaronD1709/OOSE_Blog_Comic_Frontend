@@ -39,6 +39,7 @@ import { customImageAlignStyles } from '../editor/editorCustomStyleConstant'
 import { getUserAvatar } from '../constants/utility.js'
 import { validate } from '../utils/validate.js'
 import Rating from '../components/Rating.jsx'
+import ScrollToHash from '../components/ScrollToHash.jsx'
 
 export const ViewBlogComicPage = () => {
   const { id } = useParams()
@@ -196,6 +197,7 @@ export const ViewBlogComicPage = () => {
       <style>{customImageAlignStyles}</style>
       <Layout className="border border-gray-100 rounded-2xl min-h-screen">
         {/* Sidebar trái */}
+        <ScrollToHash/>
         <Sider
           collapsible
           collapsed={collapsed}

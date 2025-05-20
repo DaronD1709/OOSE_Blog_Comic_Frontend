@@ -28,7 +28,7 @@ class CommentItem extends React.Component {
     this.state = {
       replying: false,
       menuOpen: false,
-      showChildren: false, // Thêm state để điều khiển việc hiển thị children
+      showChildren: true, // Thêm state để điều khiển việc hiển thị children
       reaction: null, // 'like' | 'dislike' | null
     }
     this.menuRef = React.createRef()
@@ -110,7 +110,7 @@ class CommentItem extends React.Component {
       })
     }
     return (
-      <div className="mb-4 flex gap-3 mx-2">
+      <div className="mb-4 flex gap-3 mx-2" id={`comment-${comment.id}`}>
         {/* Avatar */}
         <div className="flex flex-col items-center pt-2">
           <Avatar className={'!w-[70px] !h-[70px]'}

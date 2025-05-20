@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
-import { Button, message } from "antd";
+import { Avatar, Button, message } from 'antd'
 import { AuthContext } from "../../context/auth.context.jsx";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/api.js";
@@ -102,7 +102,7 @@ const UserMenu = () => {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [user]);
 
   return (
     <div className="relative h-12 flex items-center" ref={ref}>
@@ -110,10 +110,10 @@ const UserMenu = () => {
         <>
           <div className="flex items-center">
             <div className="relative group">
-              <img
+              <Avatar
                 src={getUserAvatar(user.avatar)}
                 alt="Avatar"
-                className="w-12 h-12 rounded-full border-2 border-blue-400 object-cover cursor-pointer hover:border-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-blue-200"
+                className="!w-12 !h-12 rounded-full border-2 border-blue-400 object-cover cursor-pointer hover:border-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-blue-200"
                 onClick={() => setOpen((o) => !o)}
               />
               <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>

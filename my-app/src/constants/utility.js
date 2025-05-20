@@ -17,3 +17,22 @@ export const urlToFile = async (filename) => {
   const mimeType = filename.split('.').pop() // "webp"
   return new File([blob], filename, { type: mimeType })
 }
+
+export const mapReasonToEnum = (reason) => {
+  switch (reason) {
+    case 'Nội dung phản cảm':
+      return 'INAPPROPRIATE'
+    case 'Spam':
+      return 'SPAM'
+    case 'Ngôn từ thù ghét':
+      return 'HATED_WORDS'
+    case 'Thông Tin Sai Lệch':
+      return 'MISINFORMATION'
+    case 'Quấy Rối':
+      return 'HARASSMENT'
+    case 'Khác':
+      return 'OTHER'
+    default:
+      return 'OTHER' // fallback nếu BE yêu cầu
+  }
+}

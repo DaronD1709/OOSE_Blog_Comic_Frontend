@@ -36,6 +36,7 @@ import { getUserAvatar } from "../constants/utility.js";
 import mythAvatar from "/src/assets/images/anonymous.png";
 import { validate } from "../utils/validate.js";
 import Rating from '../components/Rating.jsx'
+import ScrollToHash from '../components/ScrollToHash.jsx'
 
 export const ViewBlogCharacterPage = () => {
   const { id } = useParams();
@@ -204,6 +205,7 @@ export const ViewBlogCharacterPage = () => {
       ) : (
         <Layout className="border min-h-screen !mb-20">
           {/* Sidebar trái */}
+          <ScrollToHash/>
           <Sider
             collapsible
             collapsed={collapsed}
