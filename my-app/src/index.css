@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+
+
+
+.bg-\[\#FBFBFB\]::-webkit-scrollbar {
+  width: 8px;
+  background: #FBFBFB;
+}
+.bg-\[\#FBFBFB\]::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 4px;
+}
+.bg-\[\#FBFBFB\]::-webkit-scrollbar-thumb:hover {
+  background: #bdbdbd;
+}
